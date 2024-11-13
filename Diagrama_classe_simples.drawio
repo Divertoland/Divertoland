@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 OPR/114.0.0.0 (Edition std-2)" version="24.8.6">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.6">
   <diagram name="Página-1" id="mVfJbHa0WhxVC2eplYZP">
-    <mxGraphModel dx="1393" dy="755" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1034" dy="454" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -73,7 +73,7 @@
         <mxCell id="TFCIqe-WjmWBxuD6mcXP-32" value="1" style="edgeLabel;resizable=0;html=1;align=right;verticalAlign=top;" parent="TFCIqe-WjmWBxuD6mcXP-30" connectable="0" vertex="1">
           <mxGeometry x="1" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="TFCIqe-WjmWBxuD6mcXP-33" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Funcionario&lt;/h1&gt;&lt;div&gt;Adiciona brinquedo&lt;/div&gt;&lt;div&gt;Fecha brinquedo&lt;/div&gt;&lt;div&gt;*Banir visitante&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+        <mxCell id="TFCIqe-WjmWBxuD6mcXP-33" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Funcionario&lt;/h1&gt;&lt;div&gt;Adiciona brinquedo&lt;/div&gt;&lt;div&gt;Fecha brinquedo&lt;/div&gt;&lt;div&gt;*Banir visitante&lt;/div&gt;&lt;div&gt;*Implemnetar senha de segurança para fechar brinquedo&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="270" y="375" width="180" height="120" as="geometry" />
         </mxCell>
         <mxCell id="TFCIqe-WjmWBxuD6mcXP-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="TFCIqe-WjmWBxuD6mcXP-24" target="TFCIqe-WjmWBxuD6mcXP-33" edge="1">
