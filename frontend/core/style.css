@@ -1,0 +1,18 @@
+:root{
+    --primary-font-family: sans-serif;
+    --primary-theme-color: #ca0000;
+    --secondary-theme-color: #FFFFFF;
+    --tertiary-theme-color: #555;
+}
+
+*{
+    font-family: var(--primary-font-family);
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body, html{
+    width: 100vw;
+    height: 100vh;
+}
