@@ -1,0 +1,9 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--primary-font-family);
+    line-height: 1.5;
+    flex-direction: column;
+}
+
