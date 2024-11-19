@@ -1,9 +1,50 @@
 body {
     display: flex;
-    align-items: center;
-    justify-content: center;
     font-family: var(--primary-font-family);
     line-height: 1.5;
     flex-direction: column;
 }
 
+main {
+    display: flex;
+    width: 100%;
+}
+
+#container-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3366cc;
+    padding: 10px 20px;
+    color: white;
+}
+
+#header-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#amusement-park-icon {
+    width: 60px;
+    height: auto;
+    margin-top: 10px;
+}
+
+#header-pfp {
+    margin-left: auto;
+}
+
+#usr-pfp {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#textos {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

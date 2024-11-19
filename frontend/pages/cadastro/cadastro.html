@@ -10,7 +10,7 @@
 <body>
     <div id="conteudo">
         
-        <form id="card">
+        <form id="card" name="input-cadastro">
 
             <h1 id="titulo-card">DIVERTOLAND</h1>
 
@@ -21,9 +21,10 @@
                     name="input-usuario" 
                     id="input-usuario" 
                     placeholder="Insira seu nome de usuário"
-                    class="text-input"
+                    class="text-input input-cadastro"
                     required
                 />
+                <span id="error-input-usuario" class="input-error input-error-cadastro"></span>
             </div>
 
             <div class="container-input">
@@ -33,9 +34,10 @@
                     name="input-email" 
                     id="input-email" 
                     placeholder="Insira seu email"
-                    class="text-input"
+                    class="text-input input-cadastro"
                     required
                 />
+                <span id="error-input-email" class="input-error input-error-cadastro"></span>
             </div>
 
             <div class="container-input">
@@ -45,16 +47,19 @@
                     name="input-senha" 
                     id="input-senha" 
                     placeholder="Insira sua senha"
-                    class="text-input"
+                    class="text-input input-cadastro"
                     required
                 />
+                <span id="error-input-senha" class="input-error input-error-cadastro"></span>
             </div>
 
-            <button class="form-button">Cadastrar-se</button>
+            <button id="input-submit" class="form-button">Cadastrar-se</button>
 
             <a href="/frontend/pages/login/login.html" class="link-button">Já sou cadastrado</a>
 
         </form>
     </div>
+
+    <script src="cadastro.js"></script>
 </body>
 </html>
