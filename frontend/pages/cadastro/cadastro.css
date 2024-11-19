@@ -54,7 +54,9 @@ body, html{
 
 .input-error{
     color: red;
-    display: none;
+    visibility: hidden;
+    text-align: left;
+    font-size: .75em;
 }
 
 .form-button{

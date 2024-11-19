@@ -14,6 +14,8 @@ ready(() => {
 
         INPUT_SUBMIT = document.getElementById("input-submit");
 
+    let TERTIARY_THEME_COLOR = window.getComputedStyle(document.body).getPropertyValue('--tertiary-theme-color');
+
     document.forms["input-cadastro"].addEventListener("submit", function(e){
 
         e.preventDefault();
@@ -22,31 +24,40 @@ ready(() => {
 
         let resultValidateUsuario = validateUsuario();
         if(resultValidateUsuario !== true){
-            ERROR_INPUT_USUARIO.InnerHTML = resultValidateUsuario;
+            ERROR_INPUT_USUARIO.innerHTML = resultValidateUsuario;
+            INPUT_USUARIO.style.borderColor = "red";
             validateResult = false;
         }
-        else
-            ERROR_INPUT_USUARIO.InnerHTML = "";
+        else{
+            INPUT_USUARIO.style.borderColor = TERTIARY_THEME_COLOR;
+            ERROR_INPUT_USUARIO.innerHTML = ".";
+        }
 
         let resultValidateEmail = validateEmail();
         if(resultValidateEmail !== true){
-            ERROR_INPUT_EMAIL.InnerHTML = resultValidateEmail;
+            ERROR_INPUT_EMAIL.innerHTML = resultValidateEmail;
+            INPUT_EMAIL.style.borderColor = "red";
             validateResult = false;
         }
-        else
-            ERROR_INPUT_EMAIL.InnerHTML = "";
+        else{
+            INPUT_EMAIL.style.borderColor = TERTIARY_THEME_COLOR;
+            ERROR_INPUT_EMAIL.innerHTML = ".";
+        }
 
         let resultValidateSenha = validateSenha();
         if(resultValidateSenha !== true){
-            ERROR_INPUT_SENHA.InnerHTML = resultValidateSenha;
+            INPUT_SENHA.style.borderColor = "red";
+            ERROR_INPUT_SENHA.innerHTML = resultValidateSenha;
             validateResult = false;
         }
-        else
-            ERROR_INPUT_SENHA.InnerHTML = "";
+        else{
+            INPUT_SENHA.style.borderColor = TERTIARY_THEME_COLOR;
+            ERROR_INPUT_SENHA.innerHTML = ".";
+        }
 
         if(validateResult === false){
             for(let input of document.getElementsByClassName("input-error-cadastro")){
-                input.style.display = input.InnerHTML.trim() !== "" ? "inline" : "none";
+                input.style.visibility = input.innerHTML.trim() !== "" ? "visible" : "hidden";
             }
         }
 
@@ -77,9 +88,6 @@ function validateEmail(){
 function validateSenha(){
 
     let usuario = document.forms["input-cadastro"]["input-senha"].value;
-
-    if (usuario == null || usuario.trim() == "")
-        return "Preencha a senha";
 
     return true;
 }
