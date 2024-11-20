@@ -1,46 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
     <head>
-        <title>Divertoland</title>
-        <link rel="stylesheet" href="/pages/login/login.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Divertoland - A terra da alegria!</title>
+
+        <!-- BOOTSTRAP -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        
+        <!-- PAGE STYLE -->
         <link rel="stylesheet" href="/core/style.css">
+        <link rel="stylesheet" href="/pages/login/login.css">
     </head>
 
-    <body>
+    <body class="d-flex justify-content-center align-items-center flex-column">
         <div class="main">
 
-            <h1 id="title">DIVERTOLAND</h1>
-            <h3>Insira suas credenciais para realizar o login</h3>
+            <h2 id="title">DIVERTOLAND</h2>
+            <h5>Insira suas credenciais para realizar o login</h5>
 
-            <form>
-                <label class="label-login" for="username">
-                    Usuário
-                </label>
-                <input type="text" class="input-login" id="username" name="username" 
-                    placeholder="Insira seu usuário" required>
+            <form class="d-flex gap-3 flex-column">
 
-                <label class="label-login" for="password">
-                    Senha
-                </label>
-                <input type="password" class="input-login" id="password" name="password" 
-                    placeholder="Insira sua senha" required>
+                <div class="container-input">
+                    <label class="form-label label-login" for="username">
+                        Usuário
+                    </label>
+                    <input type="text" class="form-control input-login" id="username" name="username" 
+                        placeholder="Insira seu usuário" required>
+                </div>
+
+                <div class="container-input">
+                    <label class="form-label label-login" for="password">
+                        Senha
+                    </label>
+                    <input type="password" class="form-control input-login" id="password" name="password" 
+                        placeholder="Insira sua senha" required>
+                </div>
 
                 <div class="login-footer">
-
-                    <button type="submit">
+                    <button type="submit" class="btn btn-danger">
                         Entrar
                     </button>
                 </div>
             </form>
             
             <div>
-                <a href="#" id="botao-criar-conta">
+                <a href="/cadastro" id="botao-criar-conta" class="link-underline link-underline-opacity-0">
                     Criar uma conta
                 </a>
             </div>
 
         </div>
-    </body>
 
+        <!-- BOOTSTRAP -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    </body>
 </html>
