@@ -5,56 +5,73 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Divertoland - A terra da alegria!</title>
+        <link rel="icon" href="imgs/favicon.ico" type="image/x-icon"/>
 
         <!-- BOOTSTRAP -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        
-        <!-- PAGE STYLE -->
+            
+        <!-- PAGE STYLES -->
         <link rel="stylesheet" href="/core/style.css">
-        <link rel="stylesheet" href="/pages/login/login.css">
+        <link rel="stylesheet" href="/core/animation.css">
+        <link rel="stylesheet" href="/pages/cadastro/cadastro.css">
     </head>
 
-    <body class="d-flex justify-content-center align-items-center flex-column">
-        <div class="main">
-
-            <h2 id="title">DIVERTOLAND</h2>
-            <h5>Insira suas credenciais para realizar o login</h5>
-
-            <form class="d-flex gap-3 flex-column">
-
-                <div class="container-input">
-                    <label class="form-label label-login" for="username">
-                        Usuário
-                    </label>
-                    <input type="text" class="form-control input-login" id="username" name="username" 
-                        placeholder="Insira seu usuário" required>
-                </div>
-
-                <div class="container-input">
-                    <label class="form-label label-login" for="password">
-                        Senha
-                    </label>
-                    <input type="password" class="form-control input-login" id="password" name="password" 
-                        placeholder="Insira sua senha" required>
-                </div>
-
-                <div class="login-footer">
-                    <button type="submit" class="btn btn-danger">
-                        Entrar
-                    </button>
-                </div>
-            </form>
+    <body>
+        <div class="d-flex align-items-center justify-content-center w-100 h-100">
             
-            <div>
-                <a href="/cadastro" id="botao-criar-conta" class="link-underline link-underline-opacity-0">
-                    Criar uma conta
-                </a>
-            </div>
+            <form name="input-login" class="card">
 
+                <div class="card-body container">
+
+                    <h2 class="card-title fw-bold">DIVERTOLAND</h2>
+
+                    <h5>Insira suas credenciais para realizar o login</h5>
+    
+                    <div class="container text-start">
+                        <label for="input-email" class="form-label fw-bold">Email:</label>
+                        <input 
+                            type="text" 
+                            name="input-email" 
+                            id="input-email" 
+                            placeholder="Insira seu email"
+                            class="form-control text-input"
+                            required
+                        />
+                        <span id="error-input-email" class="input-error input-error-cadastro">.</span>
+                    </div>
+    
+                    <div class="container text-start">
+                        <label for="input-senha-cadastro" class="form-label fw-bold">Senha:</label>
+                        <input 
+                            type="password" 
+                            name="input-senha" 
+                            id="input-senha" 
+                            placeholder="Insira sua senha"
+                            class="form-control text-input"
+                            required
+                        />
+                        <span id="error-input-senha" class="input-error input-error-cadastro">.</span>
+                    </div>
+
+                    <div class="container">
+                        <button id="input-submit" class="btn btn-success form-button mb-3">Entrar</button>
+                    </div>
+                    
+                    <div class="container">
+                        <a href="/cadastro" class="link-underline link-underline-opacity-0 link-light">Criar uma conta</a>
+                    </div>
+
+                </div>
+
+
+            </form>
         </div>
 
         <!-- BOOTSTRAP -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
+        <!-- PAGE SCRIPTS -->
+        <script src="pages/cadastro/login.js"></script>
+        
     </body>
 </html>
