@@ -10,9 +10,7 @@ ready(() => {
         ERROR_INPUT_EMAIL = document.getElementById("error-input-email"),
 
         INPUT_SENHA = document.getElementById("input-senha"),
-        ERROR_INPUT_SENHA = document.getElementById("error-input-senha"),
-
-        INPUT_SUBMIT = document.getElementById("input-submit");
+        ERROR_INPUT_SENHA = document.getElementById("error-input-senha");
 
     let TERTIARY_THEME_COLOR = window.getComputedStyle(document.body).getPropertyValue('--tertiary-theme-color');
 
