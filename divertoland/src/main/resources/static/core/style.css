@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Trade+Winds&family=Open+Sans&display=swap');
+
 :root{
-    --primary-font-family: sans-serif;
+    --primary-font-family: "Open Sans", sans-serif;
     --primary-theme-color: #ca0000;
+    --contrast-primary-theme-color: #2200ca;
     --secondary-theme-color: #FFFFFF;
     --tertiary-theme-color: #555;
 }

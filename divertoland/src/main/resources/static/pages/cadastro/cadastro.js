@@ -55,7 +55,7 @@ ready(() => {
 
         if(validateResult === false){
             for(let input of document.getElementsByClassName("input-error-cadastro")){
-                input.style.visibility = input.innerHTML.trim() !== "" ? "visible" : "hidden";
+                input.style.visibility = input.innerHTML.trim() !== "." ? "visible" : "hidden";
             }
         }
 

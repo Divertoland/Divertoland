@@ -1,12 +1,44 @@
+body{
+    background-image: url("/imgs/bg-montanha-russa.jpeg");
+    background-size: cover;
+}
+
 .card{
     width: fit-content;
     height: fit-content;
     border-radius: 1em;
-    box-shadow: 0 0 1.4em rgba(0, 0, 0, 0.2);
+    border-width: 0;
+    box-shadow: 0 0.6em 1em rgba(0, 0, 0, 0.7);
     text-align: center;
+    opacity: 0;
+    transform: translateY(-1.25em);
+    animation: fadeInMoveDown 0.7s ease forwards;
+    position: relative;
+    overflow: hidden;
 }
 
-.card-title{ color: var(--primary-theme-color); }
+.card::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: var(--primary-theme-color);
+    clip-path: path("M0,32 L48,48 C96,64,192,96,288,101.3 C384,107,480,85,576,69.3 C672,53,768,43,864,64 C960,85,1056,139,1152,133.3 C1248,128,1344,64,1392,32 L1440,0 L1440,320 L1392,320 C1344,320,1248,320,1152,320 C1056,320,960,320,864,320 C768,320,672,320,576,320 C480,320,384,320,288,320 C192,320,96,320,48,320 L0,320 Z");
+    z-index: 0;
+}
+
+
+.card-title{ 
+    color: var(--primary-theme-color);
+    font-family: "Trade Winds", system-ui;
+}
+
+.card-body{
+    position: relative;
+    z-index: 1;
+}
 
 .container-input{ text-align: left; }
 
@@ -26,4 +58,6 @@
 .form-button{
     width: 100%;
     font-size: 1em;
+    padding: 1em;
 }
+
