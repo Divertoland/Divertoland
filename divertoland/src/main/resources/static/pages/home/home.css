@@ -1,32 +1,10 @@
-body{
-    background-image: url("/imgs/bg-montanha-russa.jpeg");
-    background-size: cover;
+.main-header{
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dark-bg{
-    position: fixed;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .4);
-}
-
-.main-card{
-    width: 90%;
-    height: 90%;
-    border-width: 0;
-    border-radius: 0.5em;
-    transform: translateY(-1.25em);
-    animation: fadeInMoveDown .5s ease forwards;
-}
-
-.main-card-header{
+    height: fit-content;
     background-color: var(--primary-theme-color);
     color: var(--secondary-theme-color);
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
+    padding: .5em;
 }
 
 .logo{
@@ -35,11 +13,25 @@ body{
     gap: 1em;
 }
 
-.logo-text { font-family: var(--logo-font-family); }
+.logo-text { 
+    font-family: var(--logo-font-family); 
+    padding-top: .28em;
+}
 
 .logo-icon{
     width: 2em;
     height: 2em;
+}
+
+.section-buttons{
+    display: flex;
+}
+
+.section-button{
+    background-color: var(--primary-theme-color);
+    color: var(--secondary-theme-color);
+    padding: .5em;
+    border: none;
 }
 
 .user-button{
@@ -52,3 +44,44 @@ body{
 }
 
 .user-icon { cursor: pointer; }
+
+.main-body{
+    width: 100%;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10em;
+}
+
+/* .atracoes-card-carousel{
+    position: relative;
+    display: flex;
+    perspective: 300px;
+}
+
+.card-1{
+    transform: 
+        translateZ(50px)
+}
+
+.card-2{
+    transform: 
+        translateZ(75px)
+}
+
+.card-3{
+    transform: 
+        translateZ(100px)
+}
+
+.card-4{
+    transform: 
+        translateZ(75px)
+}
+
+.card-5{
+    transform: 
+        translateZ(50px)
+} */
