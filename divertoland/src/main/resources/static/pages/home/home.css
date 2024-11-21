@@ -1,7 +1,9 @@
 .main-header{
-    display: flex;
+    position: absolute;
     width: 100%;
     height: fit-content;
+    display: flex;
+    align-items: center;
     background-color: var(--primary-theme-color);
     color: var(--secondary-theme-color);
     padding: .5em;
@@ -23,17 +25,6 @@
     height: 2em;
 }
 
-.section-buttons{
-    display: flex;
-}
-
-.section-button{
-    background-color: var(--primary-theme-color);
-    color: var(--secondary-theme-color);
-    padding: .5em;
-    border: none;
-}
-
 .user-button{
     width: 2.5em;
     height: 2.5em;
@@ -47,41 +38,45 @@
 
 .main-body{
     width: 100%;
+    height: 100vh;
     padding: 2em;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     gap: 10em;
 }
 
-/* .atracoes-card-carousel{
-    position: relative;
+.atracoes-card-carousel{
     display: flex;
-    perspective: 300px;
+    perspective: 10em;
 }
 
-.card-1{
-    transform: 
-        translateZ(50px)
+.atracao-card{
+    display: flex;
+    justify-content: flex-end;
+    background-image: url("/imgs/bg-montanha-russa.jpeg");
+    background-size: cover;
+    width: 12.5em;
+    height: 17.5em;
+    border-radius: 1em;
+    transform: translateZ(calc(var(--position) * 2em));
+    opacity: calc((var(--position) * .5) + .4);
+    transition: transform .5s;
+    z-index: var(--position);
 }
 
-.card-2{
-    transform: 
-        translateZ(75px)
+.atracao-card:hover{
+    transform: translateZ(calc((var(--position) * 2em) + .5em));
+    transition: transform .5s;
 }
 
-.card-3{
-    transform: 
-        translateZ(100px)
+.atracao-card-footer{
+    position: absolute;
+    width: 100%;
+    padding: 1em;
+    background-color: rgba(0, 0, 0, .6);
+    color: white;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
 }
-
-.card-4{
-    transform: 
-        translateZ(75px)
-}
-
-.card-5{
-    transform: 
-        translateZ(50px)
-} */
