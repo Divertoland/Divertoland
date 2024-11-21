@@ -32,7 +32,7 @@ body{
 
 .card-title{ 
     color: var(--primary-theme-color);
-    font-family: "Trade Winds", system-ui;
+    font-family: var(--logo-font-family);
 }
 
 .card-body{

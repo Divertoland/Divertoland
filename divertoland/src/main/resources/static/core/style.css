@@ -2,6 +2,7 @@
 
 :root{
     --primary-font-family: "Open Sans", sans-serif;
+    --logo-font-family: "Trade Winds", system-ui;
     --primary-theme-color: #ca0000;
     --contrast-primary-theme-color: #2200ca;
     --secondary-theme-color: #FFFFFF;
