@@ -36,7 +36,23 @@
     </header>
 
     <main class="main-body">
-        <section class="collapse collapse-horizontal main-sidebar" id="main-l-sidebar"></section>
+        <section class="collapse collapse-horizontal main-sidebar" id="main-l-sidebar">
+            <div class="sidebar-content">
+                
+            </div>
+            <div class="sidebar-handles-container">
+                <button 
+                    class="main-l-handle-sidebar-btn handle-sidebar-btn" 
+                    id="main-l-sidebar-close-btn"
+                    data-bs-target=".main-sidebar" 
+                    data-bs-toggle="collapse" 
+                    aria-expanded="false" 
+                    aria-controls="main-l-sidebar main-r-sidebar"
+                >
+                    <i class="fa-solid fa-angles-left"></i>
+                </button>
+            </div>
+        </section>
         <div class="atracoes-card-carousel">
             <div 
                 class="card atracao-card" 
@@ -89,7 +105,23 @@
                 <div class="atracao-card-footer">Mega Tobogã</div>
             </div>
         </div>
-        <section class="collapse collapse-horizontal main-sidebar" id="main-r-sidebar"></section>
+        <section class="collapse collapse-horizontal main-sidebar" id="main-r-sidebar">
+            <div class="sidebar-handles-container">
+                <button 
+                    class="main-r-handle-sidebar-btn handle-sidebar-btn" 
+                    id="main-r-sidebar-close-btn"
+                    data-bs-target=".main-sidebar" 
+                    data-bs-toggle="collapse" 
+                    aria-expanded="false" 
+                    aria-controls="main-l-sidebar main-r-sidebar"
+                >
+                    <i class="fa-solid fa-angles-right"></i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+
+            </div>
+        </section>
     </main>
 
     <!-- FONT AWESOME -->
