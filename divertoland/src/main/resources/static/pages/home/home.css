@@ -63,14 +63,14 @@
     width: 12.5em;
     height: 17.5em;
     border-radius: 1em;
-    transform: translateZ(calc(var(--position) * 2em));
-    opacity: calc((var(--position) * .5) + .4);
+    transform: translateZ(calc(var(--layer) * 2em));
+    opacity: calc((var(--layer) * .5) + .4);
     transition: transform .5s;
-    z-index: var(--position);
+    z-index: var(--layer);
 }
 
 .atracao-card:hover{
-    transform: translateZ(calc((var(--position) * 2em) + .5em));
+    transform: translateZ(calc((var(--layer) * 2em) + .5em));
     transition: transform .5s;
 }
 
