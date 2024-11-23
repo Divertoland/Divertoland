@@ -1,6 +1,6 @@
 class Node {
-    constructor(id) {
-        this.value = id;
+    constructor(value) {
+        this.value = value;
         this.next = null;
         this.prev = null;
     }
@@ -11,9 +11,13 @@ class CircularDoublyLinkedList {
       this.current = null;
       this.size = 0;
     }
+
+    empty(){
+      return this.current == null;
+    }
   
-    insert(id, title, imageUrl, description) {
-      const newNode = new Node(id, title, imageUrl, description);
+    insert(value) {
+      const newNode = new Node(value);
       
       if (this.size === 0) {
         this.current = newNode;
@@ -28,17 +32,26 @@ class CircularDoublyLinkedList {
       }
   
       this.size++;
+
+      return this;
     }
   
     next() {
-      if (this.current) {
-        this.current = this.current.next;
-      }
+      if (this.current) this.current = this.current.next;
+      return this.current;
     }
   
     prev() {
-      if (this.current) {
-        this.current = this.current.prev;
+      if (this.current) this.current = this.current.prev;
+      return this.current;
+    }
+
+    log(){
+      let start = this.current;
+      do{
+          console.log(this.current.value);
+          this.next();
       }
+      while(this.current != start);
     }
   }
