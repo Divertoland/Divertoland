@@ -3,7 +3,47 @@ const ready = fn => document.readyState !== 'loading' ? fn() : document.addEvent
 ready(() => {
     "use strict";
 
-    console.log(document.getElementsByClassName("atracao-card")[0])
-    console.log(getComputedStyle(document.getElementsByClassName("atracao-card")[2]).getPropertyValue('--position'));
+    const listaAtracoes = new CircularDoublyLinkedList([
+        { "nome": "Montanha-Russa" },
+        { "nome": "Carrossel" },
+        { "nome": "Roda-Gigante" },
+        { "nome": "Casa do Terror" },
+        { "nome": "Mega Tobogã" },
+        { "nome": "Magnetron" },
+        { "nome": "Skyrix" }
+    ]);
+    const ELEMENTOS_CARDS = document.getElementsByClassName("atracao-card");
+
+    const CAROUSEL = new CardCarousel(document.getElementsByClassName("atracoes-card-carousel")[0], listaAtracoes, ELEMENTOS_CARDS);
+
+    do{
+        let card = CAROUSEL.cards.currentNode.value;
+        card.elemento.getElementsByClassName("atracao-card-footer")[0].innerHTML = card.conteudo.nome;
+    }while(CAROUSEL.cards.currentNode != CAROUSEL.cardSelecionado);
+
+    CAROUSEL.irParaCardInicial();
+    let cardInicial = CAROUSEL.cards.currentNode.value;
+
+    do{
+
+        let cardClicado = CAROUSEL.cards.currentNode.value;
+    
+        cardClicado.elemento.addEventListener("click", e => {
+    
+            if(CAROUSEL.isCardInicial(cardClicado) || CAROUSEL.isCardCentral(cardClicado) || CAROUSEL.isCardFinal(cardClicado)) 
+                return;
+
+            CAROUSEL.selecionarCard(cardClicado)
+    
+            
+        });
+
+        for(let i = CAROUSEL.quantidadeTotalCards - 1; i < cardClicado.index; i--){listaAtracoes.prev();}
+    
+        listaAtracoes.next();
+    }
+    while(listaAtracoes.currentNode.value.elemento != null && listaAtracoes.currentNode != cardInicial);
+
+    for(let i = 0; i < CAROUSEL.indexDivisorio; i++){listaAtracoes.next()};
 
 });
