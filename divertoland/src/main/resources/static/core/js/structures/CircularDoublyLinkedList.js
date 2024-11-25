@@ -1,34 +1,42 @@
 class Node {
     constructor(value) {
         this.value = value;
-        this.next = null;
-        this.prev = null;
+        this.nextNode = null;
+        this.prevNode = null;
     }
 }
 
 class CircularDoublyLinkedList {
-    constructor() {
-      this.current = null;
+    constructor(data) {
       this.size = 0;
+      if(data === undefined){
+        this.currentNode = null;
+      }
+      else{
+        for(let i = 0; i < data.length; i++){
+          listaAtracoes.insert(atracaoAtual);
+          this.size++;
+        };
+      }
     }
 
     empty(){
-      return this.current == null;
+      return this.currentNode == null;
     }
   
     insert(value) {
       const newNode = new Node(value);
       
       if (this.size === 0) {
-        this.current = newNode;
-        newNode.next = newNode;
-        newNode.prev = newNode;
+        this.currentNode = newNode;
+        newNode.nextNode = newNode;
+        newNode.prevNode = newNode;
       } else {
-        const tail = this.current.prev;
-        tail.next = newNode;
-        newNode.prev = tail;
-        newNode.next = this.current;
-        this.current.prev = newNode;
+        const tail = this.currentNode.prevNode;
+        tail.nextNode = newNode;
+        newNode.prevNode = tail;
+        newNode.nextNode = this.currentNode;
+        this.currentNode.prevNode = newNode;
       }
   
       this.size++;
@@ -37,21 +45,21 @@ class CircularDoublyLinkedList {
     }
   
     next() {
-      if (this.current) this.current = this.current.next;
-      return this.current;
+      if (this.currentNode) this.currentNode = this.currentNode.nextNode;
+      return this.currentNode;
     }
   
     prev() {
-      if (this.current) this.current = this.current.prev;
-      return this.current;
+      if (this.currentNode) this.currentNode = this.currentNode.prevNode;
+      return this.currentNode;
     }
 
     log(){
-      let start = this.current;
+      const start = this.currentNode;
       do{
-          console.log(this.current.value);
+          console.log(this.currentNode.value);
           this.next();
       }
-      while(this.current != start);
+      while(this.currentNode != start);
     }
   }

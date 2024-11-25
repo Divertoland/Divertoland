@@ -3,64 +3,47 @@ const ready = fn => document.readyState !== 'loading' ? fn() : document.addEvent
 ready(() => {
     "use strict";
 
-    const atracoes = [
-        {
-            "nome": "Montanha-Russa",
-            "elemento": null
-        },
-        {
-            "nome": "Carrossel",
-            "elemento": null
-        },
-        {
-            "nome": "Roda-Gigante",
-            "elemento": null
-        },
-        {
-            "nome": "Casa do Terror",
-            "elemento": null
-        },
-        {
-            "nome": "Mega Tobogã",
-            "elemento": null
-        },
-        {
-            "nome": "Magnetron",
-            "elemento": null
-        },
-        {
-            "nome": "Skyrix",
-            "elemento": null
-        }
-    ];
+    const listaAtracoes = new CircularDoublyLinkedList([
+        { "nome": "Montanha-Russa" },
+        { "nome": "Carrossel" },
+        { "nome": "Roda-Gigante" },
+        { "nome": "Casa do Terror" },
+        { "nome": "Mega Tobogã" },
+        { "nome": "Magnetron" },
+        { "nome": "Skyrix" }
+    ]);
+    const ELEMENTOS_CARDS = document.getElementsByClassName("atracao-card");
 
-    const CARDS_ATRACOES = document.getElementsByClassName("atracao-card");
-    const QTD_DIVISAO_CARDS = Math.floor(CARDS_ATRACOES.length / 2);
-    const listaAtracoes = new CircularDoublyLinkedList();
-    let elementoAtual = null;
-    let atracaoAtual = null;
-    for(let i = 0; i < atracoes.length; i++){
+    const CAROUSEL = new CardCarousel(document.getElementsByClassName("atracoes-card-carousel")[0], listaAtracoes, ELEMENTOS_CARDS);
 
-        atracaoAtual = atracoes[i];
+    do{
+        let card = CAROUSEL.cards.currentNode.value;
+        card.elemento.getElementsByClassName("atracao-card-footer")[0].innerHTML = card.conteudo.nome;
+    }while(CAROUSEL.cards.currentNode != CAROUSEL.cardSelecionado);
 
-        if(i <= QTD_DIVISAO_CARDS || i > atracoes.length - 1 - QTD_DIVISAO_CARDS){
+    CAROUSEL.irParaCardInicial();
+    let cardInicial = CAROUSEL.cards.currentNode.value;
 
-            if(i <= QTD_DIVISAO_CARDS){
-                elementoAtual = CARDS_ATRACOES[i + QTD_DIVISAO_CARDS];
-            }
-            else if(i > atracoes.length - 1 - QTD_DIVISAO_CARDS){
-                elementoAtual = CARDS_ATRACOES[QTD_DIVISAO_CARDS - (atracoes.length - i - 1) - 1];
-            }
+    do{
 
-            elementoAtual.getElementsByClassName("atracao-card-footer")[0].innerHTML = atracaoAtual.nome;
-            atracaoAtual.elemento = elementoAtual;
-        }
+        let cardClicado = CAROUSEL.cards.currentNode.value;
+    
+        cardClicado.elemento.addEventListener("click", e => {
+    
+            if(CAROUSEL.isCardInicial(cardClicado) || CAROUSEL.isCardCentral(cardClicado) || CAROUSEL.isCardFinal(cardClicado)) 
+                return;
 
-        listaAtracoes.insert(atracaoAtual);
-    };
+            CAROUSEL.selecionarCard(cardClicado)
+    
+            
+        });
 
-    // listaAtracoes.log();
+        for(let i = CAROUSEL.quantidadeTotalCards - 1; i < cardClicado.index; i--){listaAtracoes.prev();}
+    
+        listaAtracoes.next();
+    }
+    while(listaAtracoes.currentNode.value.elemento != null && listaAtracoes.currentNode != cardInicial);
 
-    // console.log(getComputedStyle(document.getElementsByClassName("atracao-card")[2]).getPropertyValue('--layer'));
+    for(let i = 0; i < CAROUSEL.indexDivisorio; i++){listaAtracoes.next()};
 
 });
