@@ -34,16 +34,15 @@ ready(() => {
                 return;
 
             CAROUSEL.selecionarCard(cardClicado)
-    
-            
         });
 
-        for(let i = CAROUSEL.quantidadeTotalCards - 1; i < cardClicado.index; i--){listaAtracoes.prev();}
+        for(let i = CAROUSEL.quantidadeTotalCards - 1; i < cardClicado.index; i--){CAROUSEL.cards.prev();}
     
-        listaAtracoes.next();
+        CAROUSEL.cards.next();
     }
-    while(listaAtracoes.currentNode.value.elemento != null && listaAtracoes.currentNode != cardInicial);
+    while(CAROUSEL.cards.currentNode.value.elemento != null && CAROUSEL.cards.currentNode.value != cardInicial);
 
-    for(let i = 0; i < CAROUSEL.indexDivisorio; i++){listaAtracoes.next()};
+    CAROUSEL.irParaCardSelecionado();
 
+    CAROUSEL.cards.log()
 });

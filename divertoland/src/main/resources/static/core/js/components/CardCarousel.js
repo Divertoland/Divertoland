@@ -13,7 +13,7 @@ class CardCarousel{
     }
 
     irParaCardInicial(){
-        while(this.cards.currentNode.value != this.cardInicial){this.cards.next()}
+        while(this.cards.currentNode.value != this.cardInicial){this.cards.prev()}
     }
 
     irParaCardSelecionado(){
@@ -25,65 +25,82 @@ class CardCarousel{
         if(card == this.cardSelecionado) return;
 
         let diferencaPosicao = CAROUSEL.indexDivisorio - card.index;
+        let totalIndexMovidos = Math.abs(diferencaPosicao);
 
-        for(let i = 0; i < Math.abs(diferencaPosicao); i++){
-            do{
-                if(diferencaPosicao > 0){
-                    
-                }
-            }
-            while(this.cards.currentNode.prevNode.value != this.cardFinal);
+        
+        for(let i = 0; i < totalIndexMovidos; i++){
+            if(this.isCardNaEsquerda(card))
+                this.dados.prev();
+            else
+                this.dados.next();
+        }
+        
+        for(let i = 0; i < this.indexDivisorio; i++){
+            this.dados.prev()
         }
 
-        CAROUSEL.irParaCardInicial();
+        this.irParaCardInicial();
 
-        do{
-
-            let cardComparado = CAROUSEL.cards.currentNode.value;
-            let cardComparadoComputedStyle = window.getComputedStyle(cardComparado.elemento);
-            let camadaCard = parseInt(cardComparadoComputedStyle.getPropertyValue('--layer'));
-            let novaCamada = camadaCard;
-
-            if(CAROUSEL.isCardCentral(cardComparado)) 
-                novaCamada -= diferencaPosicao;
-            else if(CAROUSEL.isCardNaEsquerda(cardComparado)){
-                if(CAROUSEL.isCardNaEsquerda(card)){
-                    if(cardComparado.index + diferencaPosicao > CAROUSEL.indexDivisorio)
-                        novaCamada = CAROUSEL.indexDivisorio - (diferencaPosicao - (CAROUSEL.indexDivisorio - cardComparado.index));
-                    else
-                        novaCamada += diferencaPosicao;
-                }
-                else{
-                    if(cardComparado.index - diferencaPosicao < 0)
-                        novaCamada = 0;
-                    else
-                        novaCamada -= diferencaPosicao;
-                }
-            }
-            else{
-                if(CAROUSEL.isCardNaEsquerda(card)){
-                    if(cardComparado.index + diferencaPosicao >= CAROUSEL.quantidadeTotalCards)
-                        novaCamada = 0;
-                    else
-                        novaCamada -= diferencaPosicao;
-                }
-                else{
-                    if(cardComparado.index - diferencaPosicao < CAROUSEL.indexDivisorio)
-                        novaCamada = CAROUSEL.indexDivisorio - (diferencaPosicao - (cardComparado.index - CAROUSEL.indexDivisorio));
-                    else
-                        novaCamada += diferencaPosicao;
-                }
-            }
-
-            cardComparado.elemento.style.setProperty("--layer", novaCamada);
-            cardComparado.elemento.style.transform = ` 
-                translateZ(calc(var(--layer) * 1em))
-                translateX(calc(var(--largura-card) * ${diferencaPosicao * (card.index < CAROUSEL.indexDivisorio ? 1 : -1)}))
-            `;
-
-            CAROUSEL.cards.next();
+        for(let i = 0; i < this.quantidadeTotalCards; i++){
+            this.cards.currentNode.value.conteudo = this.dados.currentNode.value;
+            this.dados.next();
+            this.cards.next();
         }
-        while(CAROUSEL.cards.currentNode.value.elemento != null && CAROUSEL.cards.currentNode != CAROUSEL.cardInicial);
+
+        for(let i = 0; i < this.indexDivisorio; i++){
+            this.dados.prev();
+            this.cards.prev();
+        }
+
+        this._recalcularPosicoesCards();
+
+        // do{
+
+        //     let cardComparado = CAROUSEL.cards.currentNode.value;
+        //     let cardComparadoComputedStyle = window.getComputedStyle(cardComparado.elemento);
+        //     let camadaCard = parseInt(cardComparadoComputedStyle.getPropertyValue('--layer'));
+        //     let novaCamada = camadaCard;
+
+        //     if(CAROUSEL.isCardCentral(cardComparado)) 
+        //         novaCamada -= diferencaPosicao;
+        //     else if(CAROUSEL.isCardNaEsquerda(cardComparado)){
+        //         if(CAROUSEL.isCardNaEsquerda(card)){
+        //             if(cardComparado.index + diferencaPosicao > CAROUSEL.indexDivisorio)
+        //                 novaCamada = CAROUSEL.indexDivisorio - (diferencaPosicao - (CAROUSEL.indexDivisorio - cardComparado.index));
+        //             else
+        //                 novaCamada += diferencaPosicao;
+        //         }
+        //         else{
+        //             if(cardComparado.index - diferencaPosicao < 0)
+        //                 novaCamada = 0;
+        //             else
+        //                 novaCamada -= diferencaPosicao;
+        //         }
+        //     }
+        //     else{
+        //         if(CAROUSEL.isCardNaEsquerda(card)){
+        //             if(cardComparado.index + diferencaPosicao >= CAROUSEL.quantidadeTotalCards)
+        //                 novaCamada = 0;
+        //             else
+        //                 novaCamada -= diferencaPosicao;
+        //         }
+        //         else{
+        //             if(cardComparado.index - diferencaPosicao < CAROUSEL.indexDivisorio)
+        //                 novaCamada = CAROUSEL.indexDivisorio - (diferencaPosicao - (cardComparado.index - CAROUSEL.indexDivisorio));
+        //             else
+        //                 novaCamada += diferencaPosicao;
+        //         }
+        //     }
+
+        //     cardComparado.elemento.style.setProperty("--layer", novaCamada);
+        //     cardComparado.elemento.style.transform = ` 
+        //         translateZ(calc(var(--layer) * 1em))
+        //         translateX(calc(var(--largura-card) * ${diferencaPosicao * (card.index < CAROUSEL.indexDivisorio ? 1 : -1)}))
+        //     `;
+
+        //     CAROUSEL.cards.next();
+        // }
+        // while(CAROUSEL.cards.currentNode.value.elemento != null && CAROUSEL.cards.currentNode != CAROUSEL.cardInicial);
     }
 
     isCardCentral(card){
@@ -99,7 +116,7 @@ class CardCarousel{
     }
 
     isCardNaDireita(card){
-        return card.index < this.indexDivisorio;
+        return card.index > this.indexDivisorio;
     }
 
     isCardNaEsquerda(card){
@@ -114,6 +131,7 @@ class CardCarousel{
             let noInicial = dados.currentNode;
             let indexCardAtual = 0;
             let indexDadoAtual = 0;
+            let elementoAtual = null;
             
             do{
                 if(indexDadoAtual <= this.indexDivisorio || indexDadoAtual > this.quantidadeTotalDados - 1 - this.indexDivisorio){
@@ -124,7 +142,7 @@ class CardCarousel{
                         elementoAtual = elementoCards[this.indexDivisorio - (this.quantidadeTotalDados - indexDadoAtual - 1) - 1];
                     
                     this.cards.push(new Card(
-                        atracaoAtual.elemento,
+                        elementoAtual,
                         indexCardAtual++,
                         dados.currentNode.value
                     ));

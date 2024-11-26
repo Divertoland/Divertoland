@@ -14,7 +14,7 @@ class CircularDoublyLinkedList {
       }
       else{
         for(let i = 0; i < data.length; i++){
-          listaAtracoes.insert(atracaoAtual);
+          this.insert(data[i]);
           this.size++;
         };
       }
