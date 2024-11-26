@@ -1,10 +1,10 @@
 package com.websocket.divertoland.services;
 
+import com.websocket.divertoland.domain.dto.LoginDTO;
 import com.websocket.divertoland.repository.UserRepository;
-import com.websocket.divertoland.domain.User;
+import com.websocket.divertoland.domain.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -12,8 +12,8 @@ public class UserService {
     @Autowired
     public UserRepository userRepository;
 
-    public void createVisitorAccount(User user) {
-        userRepository.save(user);
+    public void createVisitorAccount(Usuario usuario) {
+        userRepository.save(usuario);
 //        String sql = "insert into user (name,email,password,role) values (?,?,?,?)";
 //        try (Connection conn = DatabaseUtil.getConnection();
 //             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -28,7 +28,7 @@ public class UserService {
 //        }
     }
 
-    public User login(String email, String password) {
+    public Usuario login(LoginDTO loginDTO) {
 
 //        String sql = "Select * from user where email = ? and password = ?";
 //        User user = null;
@@ -50,6 +50,6 @@ public class UserService {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-        return  userRepository.findByEmailAndSenha(email,password).orElseThrow();
+        return  userRepository.findByEmailAndSenha(loginDTO.getEmail(),loginDTO.getSenha()).orElseThrow();
     }
 }

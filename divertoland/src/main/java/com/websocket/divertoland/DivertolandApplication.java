@@ -1,7 +1,5 @@
 package com.websocket.divertoland;
 
-import com.websocket.divertoland.domain.User;
-import com.websocket.divertoland.services.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

@@ -1,15 +1,12 @@
 package com.websocket.divertoland.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 
 @Entity
 @Data
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,12 +15,11 @@ public class User {
     private String email;
     private String senha;
     private String cargo;
+    private Brinquedo brinquedo;
+    //private Fila posicaoFila;
 
-    public User(){
 
-    }
-
-    public User(String name, String email, String senha) {
+    public Usuario(String name, String email, String senha) {
         this.name = name;
         this.email = email;
         this.senha = senha;
