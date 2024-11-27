@@ -16,9 +16,8 @@ public class Usuario {
     private String senha;
     private Role cargo;
 
-
-
-
+    public Usuario(){}
+    
     public Usuario(String name, String email, String senha) {
         this.name = name;
         this.email = email;
