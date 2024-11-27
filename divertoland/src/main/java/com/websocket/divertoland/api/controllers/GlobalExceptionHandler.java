@@ -1,6 +1,5 @@
-package com.websocket.divertoland.controllers;
+package com.websocket.divertoland.api.controllers;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

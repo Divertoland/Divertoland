@@ -1,4 +1,4 @@
-package com.websocket.divertoland.controllers;
+package com.websocket.divertoland.api.controllers;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
