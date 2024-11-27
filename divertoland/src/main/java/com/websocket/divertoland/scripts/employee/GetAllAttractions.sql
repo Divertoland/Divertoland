@@ -1,0 +1,4 @@
+SELECT
+    NomeAtracao
+FROM
+    Brinquedos
