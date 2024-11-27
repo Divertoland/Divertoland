@@ -13,10 +13,7 @@ class CircularDoublyLinkedList {
         this.currentNode = null;
       }
       else{
-        for(let i = 0; i < data.length; i++){
-          this.insert(data[i]);
-          this.size++;
-        };
+        for(let i = 0; i < data.length; i++){ this.insert(data[i]); };
       }
     }
 
