@@ -14,9 +14,9 @@ public class Usuario {
     private String name;
     private String email;
     private String senha;
-    private String cargo;
-    private Brinquedo brinquedo;
-    //private Fila posicaoFila;
+    private Role cargo;
+
+
 
 
     public Usuario(String name, String email, String senha) {

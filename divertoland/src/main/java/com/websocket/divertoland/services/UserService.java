@@ -1,5 +1,7 @@
 package com.websocket.divertoland.services;
 
+import com.websocket.divertoland.domain.Brinquedo;
+import com.websocket.divertoland.domain.Fila;
 import com.websocket.divertoland.domain.dto.LoginDTO;
 import com.websocket.divertoland.repository.UserRepository;
 import com.websocket.divertoland.domain.Usuario;
@@ -38,7 +40,7 @@ public class UserService {
 //            stmt.setString(2, password);
 //
 //            try (ResultSet rs = stmt.executeQuery()) {
-//                if (rs.next()) {
+//                if (rs.proximo()) {
 //                    Long id = rs.getLong("id");
 //                    String name = rs.getString("name");
 //                    String email = rs.getString("email");
@@ -52,4 +54,12 @@ public class UserService {
 //        }
         return  userRepository.findByEmailAndSenha(loginDTO.getEmail(),loginDTO.getSenha()).orElseThrow();
     }
+
+    public void entrarFila(Usuario usuario, Brinquedo brinquedo){
+
+
+
+    }
+
+
 }
