@@ -4,17 +4,24 @@ import com.websocket.divertoland.domain.Brinquedo;
 import com.websocket.divertoland.domain.Fila;
 import com.websocket.divertoland.domain.dto.LoginDTO;
 import com.websocket.divertoland.repository.UserRepository;
+import com.websocket.divertoland.services.abstractions.UserService;
 import com.websocket.divertoland.domain.Usuario;
+
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserServiceV1 implements UserService {
 
     @Autowired
     public UserRepository userRepository;
 
-    public void createVisitorAccount(Usuario usuario) {
+    @Async
+    public CompletableFuture<Void> createVisitorAccountAsync(Usuario usuario) { return CompletableFuture.runAsync(() ->
+    {
         userRepository.save(usuario);
 //        String sql = "insert into user (name,email,password,role) values (?,?,?,?)";
 //        try (Connection conn = DatabaseUtil.getConnection();
@@ -28,10 +35,11 @@ public class UserService {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-    }
+    });}
 
-    public Usuario login(LoginDTO loginDTO) {
-
+    @Async
+    public CompletableFuture<Usuario> loginAsync(LoginDTO loginDTO) { return CompletableFuture.supplyAsync(() ->
+    {
 //        String sql = "Select * from user where email = ? and password = ?";
 //        User user = null;
 //        try (Connection conn = DatabaseUtil.getConnection();
@@ -52,8 +60,8 @@ public class UserService {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-        return  userRepository.findByEmailAndSenha(loginDTO.getEmail(),loginDTO.getSenha()).orElseThrow();
-    }
+        return userRepository.findByEmailAndSenha(loginDTO.getEmail(),loginDTO.getSenha()).orElseThrow();
+    });}
 
     public void entrarFila(Usuario usuario, Brinquedo brinquedo){
 
