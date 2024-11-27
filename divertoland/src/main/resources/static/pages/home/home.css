@@ -65,7 +65,7 @@
     height: 17.5em;
     border-radius: 1em;
     transform: translateZ(calc(var(--layer) * 1em));
-    opacity: calc((var(--layer) * .3));
+    opacity: calc((var(--layer) * .4));
     transition: transform .5s, opacity .5s;
     z-index: var(--layer);
 }
