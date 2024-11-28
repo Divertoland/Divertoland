@@ -1,7 +1,9 @@
-package com.websocket.divertoland.domain;
+package com.websocket.divertoland.domain.structures;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+
+import com.websocket.divertoland.domain.Atracao;
+import com.websocket.divertoland.domain.No;
+import com.websocket.divertoland.domain.Usuario;
 
 
 
@@ -9,9 +11,6 @@ import jakarta.persistence.ManyToOne;
 public class Fila<T> {
     private No<T> inicio, fim;
     private int tamanho;
-    @ManyToOne
-    @JoinColumn(name = "brinquedo_id", referencedColumnName = "id", nullable = false)
-    private Atracao brinquedo;
 
     public No<T> getInicio() {
         return inicio;
@@ -35,14 +34,6 @@ public class Fila<T> {
 
     public void setTamanho(int tamanho) {
         this.tamanho = tamanho;
-    }
-
-    public Atracao getBrinquedo() {
-        return brinquedo;
-    }
-
-    public void setBrinquedo(Atracao brinquedo) {
-        this.brinquedo = brinquedo;
     }
 
     public Fila() {

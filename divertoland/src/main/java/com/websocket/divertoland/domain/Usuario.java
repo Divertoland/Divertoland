@@ -19,6 +19,8 @@ public class Usuario {
     private String email;
     private String senha;
     private Role cargo;
+    @ManyToOne
+    private Atracao atracao;
 
     public Usuario(){}
     

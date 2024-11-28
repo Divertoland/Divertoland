@@ -1,8 +1,7 @@
 package com.websocket.divertoland.services;
 
-import com.websocket.divertoland.domain.Atracao;
-import com.websocket.divertoland.domain.Fila;
 import com.websocket.divertoland.domain.dto.LoginDTO;
+import com.websocket.divertoland.domain.structures.FilaAtracao;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.UserRepository;
 import com.websocket.divertoland.services.abstractions.UserService;
 import com.websocket.divertoland.domain.Usuario;
@@ -41,8 +40,11 @@ public class UserServiceV1 implements UserService {
         });
     }
 
-    public void entrarFila(Usuario usuario, Atracao brinquedo){
-
+    public void entrarFila(Usuario usuario){
+        //pegar todos que estão na fila para realizar alteração unica no bd
+        //hash key vai ser o id da atração e a fila o valor
+        var novaFila = new FilaAtracao();
+        novaFila.hashAtracao().
 
     }
 
