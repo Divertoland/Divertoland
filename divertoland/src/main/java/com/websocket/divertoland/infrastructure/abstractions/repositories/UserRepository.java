@@ -1,4 +1,4 @@
-package com.websocket.divertoland.repository;
+package com.websocket.divertoland.infrastructure.abstractions.repositories;
 
 import com.websocket.divertoland.domain.Usuario;
 

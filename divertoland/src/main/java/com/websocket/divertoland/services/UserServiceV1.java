@@ -1,9 +1,9 @@
 package com.websocket.divertoland.services;
 
-import com.websocket.divertoland.domain.Brinquedo;
+import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.Fila;
 import com.websocket.divertoland.domain.dto.LoginDTO;
-import com.websocket.divertoland.repository.UserRepository;
+import com.websocket.divertoland.infrastructure.abstractions.repositories.UserRepository;
 import com.websocket.divertoland.services.abstractions.UserService;
 import com.websocket.divertoland.domain.Usuario;
 
@@ -63,7 +63,7 @@ public class UserServiceV1 implements UserService {
         return userRepository.findByEmailAndSenha(loginDTO.getEmail(),loginDTO.getSenha()).orElseThrow();
     });}
 
-    public void entrarFila(Usuario usuario, Brinquedo brinquedo){
+    public void entrarFila(Usuario usuario, Atracao brinquedo){
 
 
 

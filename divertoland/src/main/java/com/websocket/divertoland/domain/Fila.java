@@ -11,7 +11,7 @@ public class Fila<T> {
     private int tamanho;
     @ManyToOne
     @JoinColumn(name = "brinquedo_id", referencedColumnName = "id", nullable = false)
-    private Brinquedo brinquedo;
+    private Atracao brinquedo;
 
     public No<T> getInicio() {
         return inicio;
@@ -37,11 +37,11 @@ public class Fila<T> {
         this.tamanho = tamanho;
     }
 
-    public Brinquedo getBrinquedo() {
+    public Atracao getBrinquedo() {
         return brinquedo;
     }
 
-    public void setBrinquedo(Brinquedo brinquedo) {
+    public void setBrinquedo(Atracao brinquedo) {
         this.brinquedo = brinquedo;
     }
 
