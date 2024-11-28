@@ -3,6 +3,10 @@ package com.websocket.divertoland.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 @Entity
 @Data
