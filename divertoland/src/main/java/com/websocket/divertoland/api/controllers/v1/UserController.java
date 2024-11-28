@@ -37,5 +37,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     });}
 
-
+    @Async
+    @PostMapping("/entrar-fila-brinquedo")
+    public CompletableFuture<ResponseEntity<?>> entrarFila(@RequestBody Usuario usuario){ return CompletableFuture.supplyAsync(() ->
+    {
+        _userService.entrarFila(usuario);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    });}
 }
