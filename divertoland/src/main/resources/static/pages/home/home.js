@@ -1,21 +1,15 @@
 const ready = fn => document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn);
 
-ready(() => {
+ready(async () => {
     "use strict";
 
-    const listaAtracoes = new CircularDoublyLinkedList([
-        { "nome": "Montanha-Russa" },
-        { "nome": "Carrossel" },
-        { "nome": "Roda-Gigante" },
-        { "nome": "Casa do Terror" },
-        { "nome": "Mega Tobogã" },
-        { "nome": "Magnetron" },
-        { "nome": "Skyrix" },
-        { "nome": "Skyrix" },
-        { "nome": "Skyrix" },
-        { "nome": "Skyrix" },
-        { "nome": "Skyrix" },
-    ]);
+    let atracoes = null;
+
+    await fetch(`${Constants.BASE_URL}/data/atracao/list`)
+        .then(result => result.json())
+        .then(bodyResult => atracoes = bodyResult);
+
+    const listaAtracoes = new CircularDoublyLinkedList(atracoes);
     const ELEMENTOS_CARDS = document.getElementsByClassName("atracao-card");
     const CAROUSEL = new CardCarousel(document.getElementsByClassName("atracoes-card-carousel")[0], listaAtracoes, ELEMENTOS_CARDS);
 
@@ -31,6 +25,7 @@ ready(() => {
 
         // Configuração inicial
         cardAtual.elemento.getElementsByClassName("atracao-card-footer")[0].innerHTML = cardAtual.conteudo.nome;
+        cardAtual.elemento.style.backgroundImage = `url("data:image/jpeg;base64,${cardAtual.conteudo.imagemBase64}")`;
     
         cardAtual.elemento.addEventListener("click", e => {
     
@@ -61,6 +56,7 @@ ready(() => {
                         let card = CAROUSEL.cards.currentNode.value;
                         card.elemento.classList.add("no-transition");
                         card.elemento.getElementsByClassName("atracao-card-footer")[0].innerHTML = card.conteudo.nome;
+                        card.elemento.style.backgroundImage = `url("data:image/jpeg;base64,${card.conteudo.imagemBase64}")`;
                         card.elemento.style.setProperty("--layer", card.index <= CAROUSEL.indexDivisorio ? card.index : CAROUSEL.quantidadeTotalCards - card.index - 1);
                         card.elemento.style.transform = `
                             translateZ(calc(var(--layer) * 1em))
