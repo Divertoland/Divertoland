@@ -16,6 +16,8 @@ ready(() => {
         e.preventDefault();
 
         let validateResult = true;        
+        let email = document.forms["input-login"]["input-email"].value
+        let senha = document.forms["input-login"]["input-senha"].value
 
         let resultValidateEmail = validateEmail();
         if(resultValidateEmail !== true){
@@ -43,8 +45,8 @@ ready(() => {
             for(let input of document.getElementsByClassName("input-error-login")){
                 input.style.visibility = input.innerHTML.trim() !== "." ? "visible" : "hidden";
             }
-        }else{
-            getData(INPUT_EMAIL,INPUT_SENHA);
+        }else{     
+            loginRequest(email,senha)                          
         }
     });
 
@@ -72,34 +74,30 @@ function validateSenha(){
     }
     return true;
 }
-
- async function getData(email,senha) {
-    await fetch(`${Constants.BASE_URL}/v1/data/user/login`,{email: email, senha:senha})
-        .then(result => result.json())
-        .then(bodyResult => atracoes = bodyResult);
-}
-
- async function postData(url, body) {
+async function loginRequest(email,senha) {
     try {
-        const response = await fetch(url, {
-            method: 'POST',
+        const response = await fetch(`${Constants.BASE_URL}/data/user/login`, {
+            method: 'POST', 
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json' 
             },
-            body: JSON.stringify(body) 
+            body: JSON.stringify({
+                email:email,
+                senha:senha
+            })
         });
 
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
-
-        const data = await response.json();
-        return data;
+        document.forms["input-login"].reset();
+        return window.location.href = "/"
     } catch (error) {
-        console.error('Erro ao enviar dados:', error);
+        console.error('Erro ao realizar POST com body:', error);
         throw error;
     }
 }
+
 
 
 

@@ -22,8 +22,8 @@ public class UserController {
     private UserService _userService;
 
     @Async
-    @GetMapping("/login")
-    public CompletableFuture<ResponseEntity<?>> login(LoginDTO loginDTO){ return CompletableFuture.supplyAsync(() ->
+    @PostMapping("/login")
+    public CompletableFuture<ResponseEntity<?>> login(@RequestBody LoginDTO loginDTO){ return CompletableFuture.supplyAsync(() ->
     {
         var user = _userService.loginAsync(loginDTO).join();
         return ResponseEntity.ok(user);
