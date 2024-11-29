@@ -107,6 +107,19 @@ class CardCarousel{
             }
             while(this.dados.currentNode != noInicial);
 
+            let qtdCardsVazios = this.quantidadeTotalCards - indexCardAtual
+            if(qtdCardsVazios > 0){
+                for(let i = 0; i < qtdCardsVazios; i++){
+                    this.cards.insert(new Card(
+                        elementoCards[indexCardAtual],
+                        indexCardAtual++,
+                        this.dados.currentNode.value
+                    ));
+                    this.dados.next();
+                }
+                for(let i = 0; i < qtdCardsVazios; i++){ this.dados.prev() }
+            }
+
             for(let i = 0; i < this.indexDivisorio; i++){ this.dados.next() }
         }
     }
