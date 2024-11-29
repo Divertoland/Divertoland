@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Trade+Winds&family=Open+Sans&display=swap');
 
 :root{
-    --primary-font-family: "Open Sans", sans-serif;
-    --logo-font-family: "Trade Winds", system-ui;
-    --primary-theme-color: #ca0000;
-    --contrast-primary-theme-color: #2200ca;
-    --secondary-theme-color: #FFFFFF;
-    --tertiary-theme-color: #555;
+    --primary-font-family: "Open Sans", sans-serif !important;
+    --logo-font-family: "Trade Winds", system-ui !important;
+    --primary-theme-color: #52009E !important;
+    --contrast-primary-theme-color: #089E54 !important;
+    --secondary-theme-color: #FFFFFF !important;
+    --tertiary-theme-color: #555 !important;
 }
 
 *{
