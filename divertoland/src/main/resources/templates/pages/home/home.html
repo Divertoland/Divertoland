@@ -30,15 +30,15 @@
                 </li>
             </ul>
         </nav>
-        <button class="usuario-button col-2">
-            <i class="fa-solid fa-usuario"></i>
+        <button class="user-button col-2">
+            <i class="fa-solid fa-user"></i>
         </button>
     </header>
 
     <main class="main-body">
         <section class="collapse collapse-horizontal main-sidebar" id="main-l-sidebar">
             <div class="sidebar-content">
-                <h1 class="sidebar-title">Fila da atração</h1>
+                <h2 class="sidebar-title">Fila da atração</h2>
             </div>
             <div class="sidebar-handles-container">
                 <button 
@@ -116,7 +116,15 @@
                 </button>
             </div>
             <div class="sidebar-content">
-
+                <h2 id="sidebar-atracao-title" class="sidebar-title"></h2>
+                <img alt="Imagem completa da atração" id="sidebar-atracao-img"/>
+                <span id="sidebar-atracao-descricao"></span>
+                <span>
+                    <b>Capacidade:&nbsp;</b><span id="sidebar-atracao-capacidade"></span>
+                </span>
+                <span>
+                    <b>Duração:&nbsp;</b><span id="sidebar-atracao-duracao"></span>
+                </span>
             </div>
         </section>
     </main>

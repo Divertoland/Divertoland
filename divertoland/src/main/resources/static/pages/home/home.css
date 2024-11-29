@@ -114,19 +114,30 @@
 }
 
 .sidebar-content{
-    overflow: hidden;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    height: 100%;
+    width: 100%;
     padding: 2em;
+    overflow: hidden;
+    background-color: var(--primary-theme-color-dark);
+    color: var(--secondary-theme-color);
 }
 
 .sidebar-title{
-    color: var(--secondary-theme-color);
+    text-align: center;
     overflow: hidden;
 }
 
+#sidebar-atracao-img{
+    width: 100%;
+    max-height: 18em;
+}
+
 .handle-sidebar-btn{
-    background-color: darkred;
-    color: white;
+    background-color: var(--primary-theme-color-dark);
+    color: var(--secondary-theme-color);
     border: none;
     padding: .5em;
     height: fit-content;
@@ -141,10 +152,4 @@
 .main-r-handle-sidebar-btn{
     border-top-left-radius: 2em;
     border-bottom-left-radius: 2em;
-}
-
-.sidebar-content{
-    height: 100%;
-    width: 100%;
-    background-color: darkred;
 }
