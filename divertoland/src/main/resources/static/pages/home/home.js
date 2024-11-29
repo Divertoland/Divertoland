@@ -1,23 +1,28 @@
 const ready = fn => document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn);
 
-ready(() => {
+ready(async () => {
     "use strict";
 
-    const listaAtracoes = new CircularDoublyLinkedList([
-        { "nome": "Montanha-Russa" },
-        { "nome": "Carrossel" },
-        { "nome": "Roda-Gigante" },
-        { "nome": "Casa do Terror" },
-        { "nome": "Mega Tobogã" },
-        { "nome": "Magnetron" },
-        { "nome": "Skyrix" },
-        { "nome": "Skyrix" },
-        { "nome": "Skyrix" },
-        { "nome": "Skyrix" },
-        { "nome": "Skyrix" },
-    ]);
+    let atracoes = null;
+
+    await fetch(`${Constants.BASE_URL}/data/atracao/list`)
+        .then(result => result.json())
+        .then(bodyResult => atracoes = bodyResult);
+
+    const listaAtracoes = new CircularDoublyLinkedList(atracoes);
     const ELEMENTOS_CARDS = document.getElementsByClassName("atracao-card");
     const CAROUSEL = new CardCarousel(document.getElementsByClassName("atracoes-card-carousel")[0], listaAtracoes, ELEMENTOS_CARDS);
+    
+    const LOADER = document.getElementsByClassName("loader-atracoes-card-carousel")[0];
+    const MAIN_BODY = document.getElementsByClassName("main-body")[0];
+
+    const SIDEBAR_ATRACAO_TITLE = document.getElementById("sidebar-atracao-title");
+    const SIDEBAR_ATRACAO_IMG = document.getElementById("sidebar-atracao-img");
+    const SIDEBAR_ATRACAO_DESCRICAO = document.getElementById("sidebar-atracao-descricao");
+    const SIDEBAR_ATRACAO_CAPACIDADE = document.getElementById("sidebar-atracao-capacidade");
+    const SIDEBAR_ATRACAO_DURACAO = document.getElementById("sidebar-atracao-duracao");
+
+    setConteudoCardSelecionado()
 
     let transicaoCardAcontecendo = false;
     let movimentosRestantes = 0;
@@ -31,6 +36,7 @@ ready(() => {
 
         // Configuração inicial
         cardAtual.elemento.getElementsByClassName("atracao-card-footer")[0].innerHTML = cardAtual.conteudo.nome;
+        cardAtual.elemento.style.backgroundImage = `url("data:image/jpeg;base64,${cardAtual.conteudo.imagemBase64}")`;
     
         cardAtual.elemento.addEventListener("click", e => {
     
@@ -61,6 +67,7 @@ ready(() => {
                         let card = CAROUSEL.cards.currentNode.value;
                         card.elemento.classList.add("no-transition");
                         card.elemento.getElementsByClassName("atracao-card-footer")[0].innerHTML = card.conteudo.nome;
+                        card.elemento.style.backgroundImage = `url("data:image/jpeg;base64,${card.conteudo.imagemBase64}")`;
                         card.elemento.style.setProperty("--layer", card.index <= CAROUSEL.indexDivisorio ? card.index : CAROUSEL.quantidadeTotalCards - card.index - 1);
                         card.elemento.style.transform = `
                             translateZ(calc(var(--layer) * 1em))
@@ -89,6 +96,13 @@ ready(() => {
     while(CAROUSEL.cards.currentNode.value != CAROUSEL.cardInicial);
 
     CAROUSEL.irParaCardSelecionado();
+
+    LOADER.style.display = "none";
+
+    MAIN_BODY.style.justifyContent = "space-between";
+    MAIN_BODY.style.alignItems = "normal";
+
+    CAROUSEL.elemento.style.display = "flex";
 
     function moverParaProximoCard(){
 
@@ -134,5 +148,29 @@ ready(() => {
             CAROUSEL.cards.next();
 
         CAROUSEL.selecionarCard(CAROUSEL.cards.currentNode.value)
+        setConteudoCardSelecionado()
+    }
+
+    function setConteudoCardSelecionado(){
+        SIDEBAR_ATRACAO_TITLE.innerHTML = CAROUSEL.cardSelecionado.conteudo.nome;
+        SIDEBAR_ATRACAO_IMG.setAttribute("src", `data:image/jpeg;base64,${CAROUSEL.cardSelecionado.conteudo.imagemBase64}`);
+        SIDEBAR_ATRACAO_DESCRICAO.innerHTML = CAROUSEL.cardSelecionado.conteudo.descricao;
+        SIDEBAR_ATRACAO_CAPACIDADE.innerHTML = `${CAROUSEL.cardSelecionado.conteudo.capacidade} pessoa(s) por vez`;
+
+        let stringDuracao = "";
+        let tempoDuracaoEmMin = CAROUSEL.cardSelecionado.conteudo.duracao;
+        if(tempoDuracaoEmMin > 60){
+            stringDuracao += Math.floor(tempoDuracaoEmMin / 60) + " horas";
+            let minutos = tempoDuracaoEmMin % 60;
+            if(minutos > 0)
+                stringDuracao += " e " + minutos + " minutos";
+        }
+        else{
+            if(tempoDuracaoEmMin > 0)
+                stringDuracao += minutos + " minutos";
+            else
+                stringDuracao += "menos de 1 minuto";
+        }
+        SIDEBAR_ATRACAO_DURACAO.innerHTML = stringDuracao;
     }
 });

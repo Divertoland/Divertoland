@@ -1,3 +1,4 @@
+import { postData } from "/A3-ed-algoritmos/divertoland/src/main/resources/static/api.service";
 const ready = fn => document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn);
 
 ready(() => {
@@ -74,18 +75,24 @@ function validateUsuario(){
 }
 
 function validateEmail(){
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let email = document.forms["input-cadastro"]["input-email"].value;
 
-    let usuario = document.forms["input-cadastro"]["input-email"].value;
-
-    if (usuario == null || usuario.trim() == "")
+    if (email == null || email.trim() == ""){
         return "Preencha o email";
-
+    }
+    if(!emailRegex.test(email)){
+        return "E-mail inválido"
+    }
     return true;
 }
 
 function validateSenha(){
-
-    let usuario = document.forms["input-cadastro"]["input-senha"].value;
-
+    const passwordRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+    let senha = document.forms["input-cadastro"]["input-senha"].value;
+    if (!passwordRegex.test(senha)) {
+        return "Senha inválida";
+    }
     return true;
 }
+
