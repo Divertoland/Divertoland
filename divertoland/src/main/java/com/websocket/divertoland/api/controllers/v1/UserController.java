@@ -1,5 +1,7 @@
 package com.websocket.divertoland.api.controllers.v1;
 
+import com.websocket.divertoland.api.config.ComponentConfig;
+import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.Usuario;
 import com.websocket.divertoland.domain.dto.LoginDTO;
 import com.websocket.divertoland.services.abstractions.UserService;
@@ -20,6 +22,8 @@ public class UserController {
 
     @Autowired
     private UserService _userService;
+    @Autowired
+    private ComponentConfig _componentConfig;
 
     @Async
     @GetMapping("/login")
@@ -39,9 +43,17 @@ public class UserController {
 
     @Async
     @PostMapping("/entrar-fila-brinquedo")
-    public CompletableFuture<ResponseEntity<?>> entrarFila(@RequestBody Usuario usuario){ return CompletableFuture.supplyAsync(() ->
+    public CompletableFuture<ResponseEntity<?>> entrarFila(@RequestBody Usuario usuario, @RequestBody Atracao atracao){ return CompletableFuture.supplyAsync(() ->
     {
-        _userService.entrarFila(usuario);
+        _componentConfig.AdicionarUsuarioFila(usuario, atracao);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    });}
+
+    @Async
+    @PostMapping("sair-fila-brinquedo")
+    public CompletableFuture<ResponseEntity<?>> sairFila(@RequestBody Usuario usuario, @RequestBody Atracao atracao){ return CompletableFuture.supplyAsync(() ->
+    {
+        _componentConfig.RemoverUsuarioFIla(usuario, atracao);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
 }

@@ -9,6 +9,4 @@ public interface UserService
 {
     CompletableFuture<Void> createVisitorAccountAsync(Usuario usuario);
     CompletableFuture<Usuario> loginAsync(LoginDTO loginDTO);
-    CompletableFuture<Void> entrarFila(Usuario usuario);
-
 }
