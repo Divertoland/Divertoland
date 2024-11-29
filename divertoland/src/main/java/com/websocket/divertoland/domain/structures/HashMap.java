@@ -119,4 +119,12 @@ public class HashMap<K, V> {
     public int tamanho() {
         return tamanho;
     }
+
+    // public void forEach(BiConsumer<K, V> action) {
+    //     for (List<Entry<K, V>> bucket : buckets) {
+    //         for (Entry<K, V> entry : bucket) {
+    //             action.accept(entry.getKey(), entry.getValue());
+    //         }
+    //     }
+    // }
 }
