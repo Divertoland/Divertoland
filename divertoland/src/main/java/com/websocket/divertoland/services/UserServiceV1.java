@@ -39,12 +39,6 @@ public class UserServiceV1 implements UserService {
         });
     }
 
-    public void entrarFila(Usuario usuario){
-        //pegar todos que estão na fila para realizar alteração unica no bd
-        //hash key vai ser o id da atração e a fila o valor
-
-    }
-
     public String criptografarSenha(String senha) {
         MessageDigest algoritimo = null;
         try {
