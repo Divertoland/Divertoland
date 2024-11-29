@@ -37,15 +37,27 @@
 .user-icon { cursor: pointer; }
 
 .main-body{
+    display: flex;
     width: 100%;
     height: 90vh;
-    display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-atracoes-card-carousel{
+    width: 7em;
+    height: 7em;
+    border-radius: 50%;
+    background: 
+        radial-gradient(farthest-side, var(--primary-theme-color) 94%,#0000) top/8px 8px no-repeat,
+        conic-gradient(#0000 30%, var(--primary-theme-color));
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+    animation: rotate 1s infinite linear;
 }
 
 .atracoes-card-carousel{
     position: absolute;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     perspective: 10em;
@@ -53,6 +65,9 @@
     padding-top: 2em;
     height: 90vh;
     width: 100vw;
+    opacity: 0;
+    transform: translateY(-1.25em);
+    animation: fadeInMoveDown 0.7s ease forwards;
 }
 
 .atracao-card{
@@ -96,6 +111,17 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+.sidebar-content{
+    overflow: hidden;
+    text-align: center;
+    padding: 2em;
+}
+
+.sidebar-title{
+    color: var(--secondary-theme-color);
+    overflow: hidden;
 }
 
 .handle-sidebar-btn{

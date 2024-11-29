@@ -12,6 +12,8 @@ ready(async () => {
     const listaAtracoes = new CircularDoublyLinkedList(atracoes);
     const ELEMENTOS_CARDS = document.getElementsByClassName("atracao-card");
     const CAROUSEL = new CardCarousel(document.getElementsByClassName("atracoes-card-carousel")[0], listaAtracoes, ELEMENTOS_CARDS);
+    const LOADER = document.getElementsByClassName("loader-atracoes-card-carousel")[0];
+    const MAIN_BODY = document.getElementsByClassName("main-body")[0];
 
     let transicaoCardAcontecendo = false;
     let movimentosRestantes = 0;
@@ -85,6 +87,13 @@ ready(async () => {
     while(CAROUSEL.cards.currentNode.value != CAROUSEL.cardInicial);
 
     CAROUSEL.irParaCardSelecionado();
+
+    LOADER.style.display = "none";
+
+    MAIN_BODY.style.justifyContent = "space-between";
+    MAIN_BODY.style.alignItems = "normal";
+
+    CAROUSEL.elemento.style.display = "flex";
 
     function moverParaProximoCard(){
 
