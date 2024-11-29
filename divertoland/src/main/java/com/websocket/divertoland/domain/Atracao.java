@@ -16,4 +16,5 @@ public class Atracao {
     private String descricao;
     private Long capacidade;
     private Long tempoEspera;
+    private Long duracao;
 }

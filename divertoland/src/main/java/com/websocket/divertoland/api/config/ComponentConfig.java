@@ -23,9 +23,17 @@ public class ComponentConfig {
         }
     }
 
-    public void RemoverUsuarioFIla(Usuario usuario, Atracao atracao){
+    public void RemoverUsuarioFila(Usuario usuario, Atracao atracao){
         if (!filasAtracoes.get(atracao).isEmpty()){
             filasAtracoes.get(atracao).remove(0);
         }
     }
+
+    // public int ObterPosicaoFila(Usuario usuario, Atracao atracao){
+    //     filasAtracoes.forEach((atracaoHash, usuariosHash) -> {
+    //         if(atracaoHash == atracao){
+    //             return usuariosHash.indexOf(usuario);
+    //         }
+    //     });
+    // }
 }

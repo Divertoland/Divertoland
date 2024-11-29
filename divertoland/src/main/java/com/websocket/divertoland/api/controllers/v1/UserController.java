@@ -53,7 +53,7 @@ public class UserController {
     @PostMapping("sair-fila-brinquedo")
     public CompletableFuture<ResponseEntity<?>> sairFila(@RequestBody Usuario usuario, @RequestBody Atracao atracao){ return CompletableFuture.supplyAsync(() ->
     {
-        _componentConfig.RemoverUsuarioFIla(usuario, atracao);
+        _componentConfig.RemoverUsuarioFila(usuario, atracao);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
 }
