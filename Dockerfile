@@ -1,5 +1,5 @@
 # First stage: Build the JAR file using Maven
-FROM maven:3.8.6-openjdk-17-slim AS builder
+FROM maven:3.9.9-eclipse-temurin-17 AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY src ./src
 RUN mvn clean install -DskipTests
 
 # Second stage: Create the final image with only the built JAR file
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
