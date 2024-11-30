@@ -53,13 +53,10 @@ public class Fila<T> {
         No<T> novoNo = new No<>(usuario);
         if (isEmpty()) {
             inicio = novoNo;
-            fim = inicio;
         } else {
-            inicio = novoNo;
-            fim = novoNo;
             fim.proximo = novoNo;
-
         }
+        fim = novoNo;
         tamanho++;
     }
 
@@ -93,6 +90,21 @@ public class Fila<T> {
         }
 
         return -1; // Retorna -1 se o usuário não estiver na fila
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("A fila está vazia.");
+            return;
+        }
+
+        No<T> atual = inicio;
+        System.out.print("Fila: ");
+        while (atual != null) {
+            System.out.print(atual.usuario + " ");
+            atual = atual.proximo;
+        }
+        System.out.println();
     }
 
 }
