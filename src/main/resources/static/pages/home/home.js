@@ -167,7 +167,7 @@ ready(async () => {
         }
         else{
             if(tempoDuracaoEmMin > 0)
-                stringDuracao += minutos + " minutos";
+                stringDuracao += tempoDuracaoEmMin + " minutos";
             else
                 stringDuracao += "menos de 1 minuto";
         }

@@ -95,7 +95,7 @@ function validateSenha(){
     const passwordRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
     let senha = document.forms["input-cadastro"]["input-senha"].value;
     if (!passwordRegex.test(senha)) {
-        return "Senha inválida";
+        return "A senha precisa ter no mínimo 8 caracteres e no mínimo 1 caracter especial";
     }
     return true;
 }
