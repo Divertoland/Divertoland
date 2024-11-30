@@ -47,10 +47,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Set the version from pom.xml
+      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
     - name: Log in to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Deploy to Azure Web App
-      run: az webapp config container set --name ${{ secrets.AZURE_WEBAPP }} --resource-group ${{ secrets.AZURE_RESOURCEGROUP }} --docker-custom-image-name ${{ secrets.ACR_LOGIN_SERVER }}/divertoland:${{ env.VERSION }}
+      run: az webapp config container set --name ${{ secrets.AZURE_WEBAPP }} --resource-group ${{ secrets.AZURE_RESOURCEGROUP }} --container-image-name ${{ secrets.ACR_LOGIN_SERVER }}/divertoland:${{ env.VERSION }}
