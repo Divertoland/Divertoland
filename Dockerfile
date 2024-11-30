@@ -14,7 +14,7 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
-COPY --from=builder /app/target/divertoland.jar app.jar
+COPY --from=builder /app/target/divertoland-${VERSION}-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
