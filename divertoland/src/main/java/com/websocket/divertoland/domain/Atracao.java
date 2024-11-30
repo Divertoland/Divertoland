@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Data
@@ -17,4 +18,8 @@ public class Atracao {
     private Long capacidade;
     private Long tempoEspera;
     private Long duracao;
+    private String imgName;
+
+    @Transient
+    private String imagemBase64;
 }
