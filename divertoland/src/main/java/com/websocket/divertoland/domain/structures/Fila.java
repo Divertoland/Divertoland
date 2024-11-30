@@ -1,7 +1,6 @@
 package com.websocket.divertoland.domain.structures;
 
 
-import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.No;
 import com.websocket.divertoland.domain.Usuario;
 
