@@ -39,7 +39,7 @@ jobs:
     
     - name: Push Docker image to ACR
       run: |
-        docker push ${{ secrets.ACR_NAME }}.azurecr.io/divertoland:${{ github.sha }}
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/divertoland:${{ env.VERSION }}
         
   deploy:
     runs-on: ubuntu-latest
