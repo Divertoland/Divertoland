@@ -1,7 +1,7 @@
-ARG VERSION
-
 # First stage: Build the JAR file using Maven
 FROM maven:3.9.9-eclipse-temurin-17 AS builder
+
+ARG VERSION
 
 WORKDIR /app
 
@@ -13,6 +13,8 @@ RUN mvn clean install -DskipTests
 
 # Second stage: Create the final image with only the built JAR file
 FROM eclipse-temurin:17-jdk
+
+ARG VERSION
 
 WORKDIR /app
 
