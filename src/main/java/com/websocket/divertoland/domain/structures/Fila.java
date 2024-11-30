@@ -2,7 +2,11 @@ package com.websocket.divertoland.domain.structures;
 
 
 import com.websocket.divertoland.domain.No;
+import com.websocket.divertoland.domain.dto.ListarFilaDTO;
 import com.websocket.divertoland.domain.dto.UsuarioDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Fila<T> {
@@ -103,6 +107,28 @@ public class Fila<T> {
             atual = atual.proximo;
         }
         System.out.println();
+    }
+
+    public List<ListarFilaDTO> getPosicoes() {
+        List<ListarFilaDTO> posicoes = new ArrayList<>();
+
+        if (isEmpty()) {
+            return posicoes;
+        }
+
+        No<T> atual = inicio;
+        int posicao = 0;
+
+        while (atual != null) {
+            ListarFilaDTO listarFilaDTO = new ListarFilaDTO();
+            listarFilaDTO.setNome(atual.usuario.getNome());
+            listarFilaDTO.setPosicao(posicao);
+            posicoes.add(listarFilaDTO);
+            atual = atual.proximo;
+            posicao++;
+        }
+
+        return posicoes;
     }
 
 }
