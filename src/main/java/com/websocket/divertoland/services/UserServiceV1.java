@@ -4,7 +4,6 @@ import com.websocket.divertoland.api.config.ComponentConfig;
 import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.dto.EntrarFilaRequestDTO;
 import com.websocket.divertoland.domain.dto.LoginDTO;
-import com.websocket.divertoland.domain.dto.UsuarioDTO;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.AtracaoRepository;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.UserRepository;
 import com.websocket.divertoland.services.abstractions.UserService;
@@ -81,7 +80,7 @@ public class UserServiceV1 implements UserService {
     public CompletableFuture<Void> sairDaFila(Long atracaoId){
         return CompletableFuture.runAsync(() ->
         {
-        var user = _componentConfig.getIncio(atracaoId);
+        var user = _componentConfig.getInicio(atracaoId);
         _componentConfig.RemoverUsuarioFila(atracaoId);
         Usuario usuarioBD = userRepository.findById(user.usuario.getId()).orElseThrow();
         usuarioBD.setAtracao(null);

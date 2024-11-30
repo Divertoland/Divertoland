@@ -34,7 +34,7 @@ public class ComponentConfig {
         return filasAtracoes.get(atracaoId).posicaoUsuario(usuario);
     }
 
-    public No<UsuarioDTO> getIncio(Long atracaoId){
+    public No<UsuarioDTO> getInicio(Long atracaoId){
         return filasAtracoes.get(atracaoId).getInicio();
     }
 
