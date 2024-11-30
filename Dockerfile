@@ -1,14 +1,25 @@
-# Use OpenJDK image
-FROM openjdk:17-jdk-slim
+# First stage: Build the JAR file using Maven
+FROM maven:3.9.9-eclipse-temurin-17 AS builder
 
-# Set working directory
+ARG VERSION
+
 WORKDIR /app
 
-# Copy application JAR
-COPY target/divertoland.jar app.jar
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Expose the port
+COPY src ./src
+RUN mvn clean install -DskipTests
+
+# Second stage: Create the final image with only the built JAR file
+FROM eclipse-temurin:17-jdk
+
+ARG VERSION
+
+WORKDIR /app
+
+COPY --from=builder /app/target/divertoland-$VERSION.jar app.jar
+
 EXPOSE 8080
 
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
