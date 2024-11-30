@@ -2,9 +2,7 @@ package com.websocket.divertoland.domain.structures;
 
 
 import com.websocket.divertoland.domain.No;
-import com.websocket.divertoland.domain.Usuario;
-
-
+import com.websocket.divertoland.domain.dto.UsuarioDTO;
 
 
 public class Fila<T> {
@@ -48,7 +46,7 @@ public class Fila<T> {
         return tamanho;
     }
 
-    public void enqueue(Usuario usuario)
+    public void enqueue(UsuarioDTO usuario)
     {
         No<T> novoNo = new No<>(usuario);
         if (isEmpty()) {
@@ -60,7 +58,7 @@ public class Fila<T> {
         tamanho++;
     }
 
-    public Usuario dequeue() {
+    public UsuarioDTO dequeue() {
         if (isEmpty()){
             return null;
         }
@@ -77,7 +75,7 @@ public class Fila<T> {
         return tamanho;
     }
 
-    public int posicaoUsuario(Usuario usuario) {
+    public int posicaoUsuario(UsuarioDTO usuario) {
         No<T> atual = inicio; // Começa pelo início da fila
         int posicao = 0;      // Contador para a posição
 

@@ -46,7 +46,7 @@ public class UserController {
     @PostMapping("/entrar-fila-brinquedo")
     public CompletableFuture<ResponseEntity<?>> entrarFila(@RequestBody EntrarFilaRequestDTO entrarFilaRequestDTO){ return CompletableFuture.supplyAsync(() ->
     {
-        _componentConfig.AdicionarUsuarioHashMp(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
+        _userService.entrarNaFila(entrarFilaRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
 
@@ -54,7 +54,7 @@ public class UserController {
     @PostMapping("/{atracaoId}/sair-fila-brinquedo")
     public CompletableFuture<ResponseEntity<?>> sairFila(@PathVariable Long atracaoId){ return CompletableFuture.supplyAsync(() ->
     {
-        _componentConfig.RemoverUsuarioFila(atracaoId);
+        _userService.sairDaFila(atracaoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
 
@@ -62,7 +62,7 @@ public class UserController {
     @PostMapping("/posicao-fila")
     public CompletableFuture<ResponseEntity<?>> obterPosicaoFila(@RequestBody EntrarFilaRequestDTO entrarFilaRequestDTO){
         return CompletableFuture.supplyAsync(() ->{
-            var posicao = _componentConfig.ObterPosicaoFila(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
+            var posicao = _userService.posicaoDaFila(entrarFilaRequestDTO).join();
             return ResponseEntity.ok(posicao);
         });
     }
