@@ -1,11 +1,8 @@
 package com.websocket.divertoland.domain.structures;
 
 
-import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.No;
-import com.websocket.divertoland.domain.Usuario;
-
-
+import com.websocket.divertoland.domain.dto.UsuarioDTO;
 
 
 public class Fila<T> {
@@ -49,25 +46,22 @@ public class Fila<T> {
         return tamanho;
     }
 
-    public void enqueue(Usuario usuario)
+    public void enqueue(UsuarioDTO usuario)
     {
         No<T> novoNo = new No<>(usuario);
         if (isEmpty()) {
             inicio = novoNo;
-            fim = inicio;
         } else {
-            inicio = novoNo;
-            fim = novoNo;
             fim.proximo = novoNo;
-
         }
+        fim = novoNo;
         tamanho++;
     }
 
-    public Usuario dequeue() {
+    public UsuarioDTO dequeue() {
         if (isEmpty()){
             return null;
-            }
+        }
         No<T> temp = inicio;
         inicio = inicio.proximo;
         if(inicio==null) {
@@ -79,6 +73,36 @@ public class Fila<T> {
 
     public int size() {
         return tamanho;
+    }
+
+    public int posicaoUsuario(UsuarioDTO usuario) {
+        No<T> atual = inicio; // Começa pelo início da fila
+        int posicao = 0;      // Contador para a posição
+
+        while (atual != null) {
+            if (atual.usuario.equals(usuario)) {
+                return posicao; // Retorna a posição do usuário se encontrado
+            }
+            atual = atual.proximo; // Move para o próximo nó
+            posicao++;
+        }
+
+        return -1; // Retorna -1 se o usuário não estiver na fila
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("A fila está vazia.");
+            return;
+        }
+
+        No<T> atual = inicio;
+        System.out.print("Fila: ");
+        while (atual != null) {
+            System.out.print(atual.usuario + " ");
+            atual = atual.proximo;
+        }
+        System.out.println();
     }
 
 }

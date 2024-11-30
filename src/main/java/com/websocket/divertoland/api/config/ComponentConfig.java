@@ -1,39 +1,44 @@
 package com.websocket.divertoland.api.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.websocket.divertoland.domain.No;
+import com.websocket.divertoland.domain.dto.UsuarioDTO;
+import com.websocket.divertoland.domain.structures.Fila;
 import org.springframework.stereotype.Component;
 
-import com.websocket.divertoland.domain.Atracao;
-import com.websocket.divertoland.domain.Usuario;
 import com.websocket.divertoland.domain.structures.HashMap;
 
 @Component
 public class ComponentConfig {
-    
-    private HashMap<Atracao, List<Usuario>> filasAtracoes;
 
-    public void AdicionarUsuarioFila(Usuario usuario, Atracao atracao){
-        if (filasAtracoes.get(atracao).isEmpty()){
-            filasAtracoes.get(atracao).add(usuario);
-        } else {
-            filasAtracoes.put(atracao, new ArrayList<Usuario>());
-            filasAtracoes.get(atracao).add(usuario);
+    private final HashMap<Long, Fila<UsuarioDTO>> filasAtracoes = new HashMap<>();
+    private final Fila<UsuarioDTO> fila = new Fila<>();
+
+
+    public void AdicionarUsuarioHashMp(Long atracaoId, UsuarioDTO usuario){
+        if(filasAtracoes.get(atracaoId) != null){
+            filasAtracoes.get(atracaoId).enqueue(usuario);
+        }else {
+            fila.enqueue(usuario);
+            filasAtracoes.put(atracaoId,fila);
+        }
+
+    }
+
+    public void RemoverUsuarioFila(Long atracaoId){
+        if (!filasAtracoes.get(atracaoId).isEmpty()){
+            filasAtracoes.get(atracaoId).dequeue();
         }
     }
 
-    public void RemoverUsuarioFila(Usuario usuario, Atracao atracao){
-        if (!filasAtracoes.get(atracao).isEmpty()){
-            filasAtracoes.get(atracao).remove(0);
-        }
+    public int ObterPosicaoFila(Long atracaoId, UsuarioDTO usuario){
+        return filasAtracoes.get(atracaoId).posicaoUsuario(usuario);
     }
 
-    // public int ObterPosicaoFila(Usuario usuario, Atracao atracao){
-    //     filasAtracoes.forEach((atracaoHash, usuariosHash) -> {
-    //         if(atracaoHash == atracao){
-    //             return usuariosHash.indexOf(usuario);
-    //         }
-    //     });
-    // }
+    public No<UsuarioDTO> getInicio(Long atracaoId){
+        return filasAtracoes.get(atracaoId).getInicio();
+    }
+
+
+
+
 }

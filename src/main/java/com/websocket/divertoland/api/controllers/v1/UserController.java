@@ -3,6 +3,7 @@ package com.websocket.divertoland.api.controllers.v1;
 import com.websocket.divertoland.api.config.ComponentConfig;
 import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.Usuario;
+import com.websocket.divertoland.domain.dto.EntrarFilaRequestDTO;
 import com.websocket.divertoland.domain.dto.LoginDTO;
 import com.websocket.divertoland.services.abstractions.UserService;
 
@@ -43,17 +44,26 @@ public class UserController {
 
     @Async
     @PostMapping("/entrar-fila-brinquedo")
-    public CompletableFuture<ResponseEntity<?>> entrarFila(@RequestBody Usuario usuario, @RequestBody Atracao atracao){ return CompletableFuture.supplyAsync(() ->
+    public CompletableFuture<ResponseEntity<?>> entrarFila(@RequestBody EntrarFilaRequestDTO entrarFilaRequestDTO){ return CompletableFuture.supplyAsync(() ->
     {
-        _componentConfig.AdicionarUsuarioFila(usuario, atracao);
+        _userService.entrarNaFila(entrarFilaRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
 
     @Async
-    @PostMapping("sair-fila-brinquedo")
-    public CompletableFuture<ResponseEntity<?>> sairFila(@RequestBody Usuario usuario, @RequestBody Atracao atracao){ return CompletableFuture.supplyAsync(() ->
+    @PostMapping("/{atracaoId}/sair-fila-brinquedo")
+    public CompletableFuture<ResponseEntity<?>> sairFila(@PathVariable Long atracaoId){ return CompletableFuture.supplyAsync(() ->
     {
-        _componentConfig.RemoverUsuarioFila(usuario, atracao);
+        _userService.sairDaFila(atracaoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
+
+    @Async
+    @PostMapping("/posicao-fila")
+    public CompletableFuture<ResponseEntity<?>> obterPosicaoFila(@RequestBody EntrarFilaRequestDTO entrarFilaRequestDTO){
+        return CompletableFuture.supplyAsync(() ->{
+            var posicao = _userService.posicaoDaFila(entrarFilaRequestDTO).join();
+            return ResponseEntity.ok(posicao);
+        });
+    }
 }
