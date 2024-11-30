@@ -1,6 +1,5 @@
 package com.websocket.divertoland.services;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
