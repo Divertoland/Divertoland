@@ -120,7 +120,7 @@ async function cadastroRequest(nome,email,senha) {
         document.forms["input-cadastro"].reset();
         return window.location.href = "/login"
     } catch (error) {
-        console.error('Erro ao realizar POST com body:', error);
+        console.error('Erro ao realizar cadastroRequest com body:', error);
         throw error;
     }
 }

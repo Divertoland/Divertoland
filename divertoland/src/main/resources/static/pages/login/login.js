@@ -93,7 +93,7 @@ async function loginRequest(email,senha) {
         document.forms["input-login"].reset();
         return window.location.href = "/"
     } catch (error) {
-        console.error('Erro ao realizar POST com body:', error);
+        console.error('Erro ao realizar loginRequest com body:', error);
         throw error;
     }
 }
