@@ -1,31 +1,31 @@
 package com.websocket.divertoland.api.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.websocket.divertoland.domain.structures.Fila;
 import org.springframework.stereotype.Component;
 
-import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.Usuario;
 import com.websocket.divertoland.domain.structures.HashMap;
 
 @Component
 public class ComponentConfig {
     
-    private HashMap<Atracao, List<Usuario>> filasAtracoes;
+    private final HashMap<Long, Fila<Usuario>> filasAtracoes = new HashMap<>();
+    private final Fila<Usuario> fila = new Fila<>();
 
-    public void AdicionarUsuarioFila(Usuario usuario, Atracao atracao){
-        if (filasAtracoes.get(atracao).isEmpty()){
-            filasAtracoes.get(atracao).add(usuario);
-        } else {
-            filasAtracoes.put(atracao, new ArrayList<Usuario>());
-            filasAtracoes.get(atracao).add(usuario);
+
+    public void AdicionarUsuarioHashMp(Long atracaoId, Usuario usuario){
+        if(filasAtracoes.get(atracaoId) != null){
+            filasAtracoes.get(atracaoId).enqueue(usuario);
+        }else {
+            fila.enqueue(usuario);
+            filasAtracoes.put(atracaoId,fila);
         }
+
     }
 
-    public void RemoverUsuarioFila(Usuario usuario, Atracao atracao){
-        if (!filasAtracoes.get(atracao).isEmpty()){
-            filasAtracoes.get(atracao).remove(0);
+    public void RemoverUsuarioFila(Long atracaoId){
+       if (!filasAtracoes.get(atracaoId).isEmpty()){
+            filasAtracoes.get(atracaoId).dequeue();
         }
     }
 
@@ -36,4 +36,6 @@ public class ComponentConfig {
     //         }
     //     });
     // }
+
+
 }
