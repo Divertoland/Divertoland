@@ -9,7 +9,7 @@ public class HashMap<K, V> {
     private int tamanho;
 
     public HashMap() {
-        tabela = new Object[0][];
+        tabela = new Object[16][];
         tamanho = 0;
     }
 
