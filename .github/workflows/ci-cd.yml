@@ -20,12 +20,10 @@ jobs:
         distribution: 'adopt'
     
     - name: Set the version from pom.xml
-      run: |
-        echo VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) >> $GITHUB_ENV
+      run: echo VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) >> $GITHUB_ENV
 
     - name: Build Docker image
-      run: |
-        docker build --build-arg VERSION=${{ env.VERSION }} -t ${{ secrets.ACR_NAME }}.azurecr.io/divertoland:${{ env.VERSION }} .
+      run: docker build --build-arg VERSION=${{ env.VERSION }} -t ${{ secrets.ACR_NAME }}.azurecr.io/divertoland:${{ env.VERSION }} .
     
     - name: Log in to Azure Container Registry
       uses: azure/docker-login@v1
@@ -34,8 +32,7 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }}
     
     - name: Push Docker image to ACR
-      run: |
-        docker push ${{ secrets.ACR_NAME }}.azurecr.io/divertoland:${{ env.VERSION }}
+      run: docker push ${{ secrets.ACR_NAME }}.azurecr.io/divertoland:${{ env.VERSION }}
         
   deploy:
     runs-on: ubuntu-latest
