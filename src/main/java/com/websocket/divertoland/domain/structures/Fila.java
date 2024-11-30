@@ -66,7 +66,7 @@ public class Fila<T> {
     public Usuario dequeue() {
         if (isEmpty()){
             return null;
-            }
+        }
         No<T> temp = inicio;
         inicio = inicio.proximo;
         if(inicio==null) {
@@ -78,6 +78,21 @@ public class Fila<T> {
 
     public int size() {
         return tamanho;
+    }
+
+    public int posicaoUsuario(Usuario usuario) {
+        No<T> atual = inicio; // Começa pelo início da fila
+        int posicao = 0;      // Contador para a posição
+
+        while (atual != null) {
+            if (atual.usuario.equals(usuario)) {
+                return posicao; // Retorna a posição do usuário se encontrado
+            }
+            atual = atual.proximo; // Move para o próximo nó
+            posicao++;
+        }
+
+        return -1; // Retorna -1 se o usuário não estiver na fila
     }
 
 }

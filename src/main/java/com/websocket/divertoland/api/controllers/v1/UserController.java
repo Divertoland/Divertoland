@@ -57,4 +57,13 @@ public class UserController {
         _componentConfig.RemoverUsuarioFila(atracaoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
+
+    @Async
+    @PostMapping("/posicao-fila")
+    public CompletableFuture<ResponseEntity<?>> obterPosicaoFila(@RequestBody EntrarFilaRequestDTO entrarFilaRequestDTO){
+        return CompletableFuture.supplyAsync(() ->{
+            var posicao = _componentConfig.ObterPosicaoFila(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
+            return ResponseEntity.ok(posicao);
+        });
+    }
 }

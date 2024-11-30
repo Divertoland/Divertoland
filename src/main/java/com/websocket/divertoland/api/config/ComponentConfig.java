@@ -8,7 +8,7 @@ import com.websocket.divertoland.domain.structures.HashMap;
 
 @Component
 public class ComponentConfig {
-    
+
     private final HashMap<Long, Fila<Usuario>> filasAtracoes = new HashMap<>();
     private final Fila<Usuario> fila = new Fila<>();
 
@@ -24,18 +24,14 @@ public class ComponentConfig {
     }
 
     public void RemoverUsuarioFila(Long atracaoId){
-       if (!filasAtracoes.get(atracaoId).isEmpty()){
+        if (!filasAtracoes.get(atracaoId).isEmpty()){
             filasAtracoes.get(atracaoId).dequeue();
         }
     }
 
-    // public int ObterPosicaoFila(Usuario usuario, Atracao atracao){
-    //     filasAtracoes.forEach((atracaoHash, usuariosHash) -> {
-    //         if(atracaoHash == atracao){
-    //             return usuariosHash.indexOf(usuario);
-    //         }
-    //     });
-    // }
+    public int ObterPosicaoFila(Long atracaoId, Usuario usuario){
+        return filasAtracoes.get(atracaoId).posicaoUsuario(usuario);
+    }
 
 
 
