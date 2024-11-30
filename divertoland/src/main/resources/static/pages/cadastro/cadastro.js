@@ -1,4 +1,3 @@
-import { postData } from "/A3-ed-algoritmos/divertoland/src/main/resources/static/api.service";
 const ready = fn => document.readyState !== 'loading' ? fn() : document.addEventListener('DOMContentLoaded', fn);
 
 ready(() => {
@@ -20,6 +19,9 @@ ready(() => {
         e.preventDefault();
 
         let validateResult = true;
+        let nome = document.forms["input-cadastro"]["input-usuario"].value;
+        let email = document.forms["input-cadastro"]["input-email"].value;
+        let senha = document.forms["input-cadastro"]["input-senha"].value;
 
         let resultValidateUsuario = validateUsuario();
         if(resultValidateUsuario !== true){
@@ -58,6 +60,8 @@ ready(() => {
             for(let input of document.getElementsByClassName("input-error-cadastro")){
                 input.style.visibility = input.innerHTML.trim() !== "." ? "visible" : "hidden";
             }
+        }else{
+            cadastroRequest(nome,email,senha)
         }
 
     });
@@ -94,5 +98,30 @@ function validateSenha(){
         return "Senha inválida";
     }
     return true;
+}
+
+async function cadastroRequest(nome,email,senha) {
+    try {
+        const response = await fetch(`${Constants.BASE_URL}/data/user/cadastro`, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({
+                nome: nome,
+                email:email,
+                senha:senha
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status}`);
+        }
+        document.forms["input-cadastro"].reset();
+        return window.location.href = "/login"
+    } catch (error) {
+        console.error('Erro ao realizar cadastroRequest com body:', error);
+        throw error;
+    }
 }
 
