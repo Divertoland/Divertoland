@@ -78,10 +78,6 @@ async function loginRequest(email,senha) {
     try {
         const response = await fetch(`${Constants.API_ROUTE}/auth/login`, {
             method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json',
-                'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN')
-            },
             body: JSON.stringify({
                 email:email,
                 senha:senha
