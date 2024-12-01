@@ -5,7 +5,7 @@ ready(async () => {
 
     let atracoes = null;
 
-    await fetch(`${Constants.API_BASE_URL}/atracao/list`)
+    await fetch(`${Constants.API_BASE_URL}/atracao/list`, { credentials: 'same-origin' })
         .then(result => result.json())
         .then(bodyResult => atracoes = bodyResult);
 

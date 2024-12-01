@@ -1,11 +1,10 @@
 package com.websocket.divertoland.api.controllers.v1;
 
 import com.websocket.divertoland.api.config.ComponentConfig;
-import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.Usuario;
 import com.websocket.divertoland.domain.dto.EntrarFilaRequestDTO;
 import com.websocket.divertoland.domain.dto.LoginDTO;
-import com.websocket.divertoland.services.abstractions.UserService;
+import com.websocket.divertoland.services.abstractions.UsuarioService;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -13,40 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
 @RestController
-@RequestMapping("/api/v1/user")
-public class UserController {
+@RequestMapping("/api/v1/usuario")
+public class UsuarioController {
 
     @Autowired
-    private UserService _userService;
+    private UsuarioService _usuarioService;
     @Autowired
     private ComponentConfig _componentConfig;
-
-    @Async
-    @PostMapping("/login")
-    public CompletableFuture<ResponseEntity<?>> login(@RequestBody LoginDTO loginDTO){ return CompletableFuture.supplyAsync(() ->
-    {
-        var user = _userService.loginAsync(loginDTO).join();
-        return ResponseEntity.ok(user);
-    });}
-
-    @Async
-    @PostMapping("/cadastro")
-    public CompletableFuture<ResponseEntity<?>> cadastro(@RequestBody Usuario usuario){ return CompletableFuture.supplyAsync(() ->
-    {
-        _userService.createVisitorAccountAsync(usuario).join();
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    });}
 
     @Async
     @PostMapping("/entrar-fila-brinquedo")
     public CompletableFuture<ResponseEntity<?>> entrarFila(@RequestBody EntrarFilaRequestDTO entrarFilaRequestDTO){ return CompletableFuture.supplyAsync(() ->
     {
-        _userService.entrarNaFila(entrarFilaRequestDTO);
+        _usuarioService.entrarNaFila(entrarFilaRequestDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
 
@@ -54,7 +35,7 @@ public class UserController {
     @PostMapping("/{atracaoId}/sair-fila-brinquedo")
     public CompletableFuture<ResponseEntity<?>> sairFila(@PathVariable Long atracaoId){ return CompletableFuture.supplyAsync(() ->
     {
-        _userService.sairDaFila(atracaoId);
+        _usuarioService.sairDaFila(atracaoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     });}
 
@@ -62,7 +43,7 @@ public class UserController {
     @PostMapping("/posicao-fila")
     public CompletableFuture<ResponseEntity<?>> obterPosicaoFila(@RequestBody EntrarFilaRequestDTO entrarFilaRequestDTO){
         return CompletableFuture.supplyAsync(() ->{
-            var posicao = _userService.posicaoDaFila(entrarFilaRequestDTO).join();
+            var posicao = _usuarioService.posicaoDaFila(entrarFilaRequestDTO).join();
             return ResponseEntity.ok(posicao);
         });
     }

@@ -102,7 +102,7 @@ function validateSenha(){
 
 async function cadastroRequest(nome,email,senha) {
     try {
-        const response = await fetch(`${Constants.API_BASE_URL}/user/cadastro`, {
+        const response = await fetch(`${Constants.API_ROUTE}/auth/register`, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json' 

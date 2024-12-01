@@ -76,7 +76,7 @@ function validateSenha(){
 }
 async function loginRequest(email,senha) {
     try {
-        const response = await fetch(`${Constants.API_BASE_URL}/user/login`, {
+        const response = await fetch(`${Constants.API_ROUTE}/auth/login`, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json' 

@@ -4,19 +4,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import com.websocket.divertoland.services.AtracaoServiceV1;
-import com.websocket.divertoland.services.UserServiceV1;
 import com.websocket.divertoland.services.abstractions.AtracaoService;
-import com.websocket.divertoland.services.abstractions.UserService;
+import com.websocket.divertoland.services.abstractions.UsuarioService;
+import com.websocket.divertoland.services.v1.AtracaoServiceV1;
+import com.websocket.divertoland.services.v1.UsuarioServiceV1;
 
 @Configuration
 public class DependencyConfig 
 {
     @Bean
     @Primary
-    public UserService UserService(){ return new UserServiceV1(); }
-
+    public AtracaoService AtracaoService(){ return new AtracaoServiceV1(); }
+    
     @Bean
     @Primary
-    public AtracaoService AtracaoService(){ return new AtracaoServiceV1(); }
+    public UsuarioService UsuarioService(){ return new UsuarioServiceV1(); }
 }

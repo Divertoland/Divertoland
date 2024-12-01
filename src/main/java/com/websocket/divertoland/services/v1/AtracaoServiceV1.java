@@ -1,4 +1,4 @@
-package com.websocket.divertoland.services;
+package com.websocket.divertoland.services.v1;
 
 import java.io.InputStream;
 import java.util.Base64;
