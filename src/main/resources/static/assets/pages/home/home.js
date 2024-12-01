@@ -3,8 +3,6 @@ const ready = fn => document.readyState !== 'loading' ? fn() : document.addEvent
 ready(async () => {
     "use strict";
 
-    console.log("teste")
-
     let atracoes = null;
     let usuario = null;
 
