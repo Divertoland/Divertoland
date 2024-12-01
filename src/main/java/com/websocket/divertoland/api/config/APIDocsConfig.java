@@ -7,6 +7,6 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 
 @Configuration
-@Profile({"dev", "test"})
+@Profile({"local", "test"})
 @OpenAPIDefinition(info = @Info(title = "Divertoland API", version = "1.0.0"))
 public class APIDocsConfig {}
