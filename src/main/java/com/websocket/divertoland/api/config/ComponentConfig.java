@@ -1,11 +1,14 @@
 package com.websocket.divertoland.api.config;
 
 import com.websocket.divertoland.domain.No;
+import com.websocket.divertoland.domain.dto.ListarFilaDTO;
 import com.websocket.divertoland.domain.dto.UsuarioDTO;
 import com.websocket.divertoland.domain.structures.Fila;
 import org.springframework.stereotype.Component;
 
 import com.websocket.divertoland.domain.structures.HashMap;
+
+import java.util.List;
 
 @Component
 public class ComponentConfig {
@@ -38,7 +41,9 @@ public class ComponentConfig {
         return filasAtracoes.get(atracaoId).getInicio();
     }
 
-
+    public List<ListarFilaDTO> listarFila (Long atracaoId){
+        return filasAtracoes.get(atracaoId).getPosicoes();
+    }
 
 
 }

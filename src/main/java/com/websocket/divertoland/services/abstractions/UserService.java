@@ -14,4 +14,5 @@ public interface UserService
     CompletableFuture<Void> entrarNaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
     CompletableFuture<Void> sairDaFila(Long atracaoId);
     CompletableFuture<Integer> posicaoDaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
+    CompletableFuture<UsuarioDTO> findById(Long usuarioId);
 }

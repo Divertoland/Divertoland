@@ -4,11 +4,13 @@ ready(async () => {
     "use strict";
 
     let atracoes = null;
+    let usuario = null;
 
     await fetch(`${Constants.API_BASE_URL}/atracao/list`)
         .then(result => result.json())
         .then(bodyResult => atracoes = bodyResult);
 
+    getUser();
     const listaAtracoes = new CircularDoublyLinkedList(atracoes);
     const ELEMENTOS_CARDS = document.getElementsByClassName("atracao-card");
     const CAROUSEL = new CardCarousel(document.getElementsByClassName("atracoes-card-carousel")[0], listaAtracoes, ELEMENTOS_CARDS);
@@ -24,6 +26,62 @@ ready(async () => {
 
     setConteudoCardSelecionado()
 
+    let msgEntrarFila =document.getElementById("msg-entrar-fila")    
+    msgEntrarFila.style.display = 'none';
+   
+
+    document.getElementById("enqueue").addEventListener("click", async function(e){
+        e.preventDefault();
+
+        let atracaoDTO = new AtracaoDTO(usuario?.atracao?.id,usuario?.atracao?.nome);
+        let usuarioDTO = new UsuarioDTO(usuario.id,usuario.nome,atracaoDTO);
+        let entrarFilaRequestDTO = new EntrarFilaRequestDTO(usuarioDTO,CAROUSEL.cards.currentNode.value.conteudo.id)
+        if(atracaoDTO.id != null || atracaoDTO.id != undefined){
+            msgEntrarFila.style.display = CAROUSEL.cards.currentNode.value.conteudo.id != atracaoDTO.id ? 'block': 'none'
+            msgEntrarFila.innerHTML = `Você já está na fila da atração: ${usuario?.atracao?.nome}`;
+        }        
+        if (atracaoDTO.id == null || atracaoDTO.id == undefined) {
+            const response = await fetch(`${Constants.API_BASE_URL}/user/entrar-fila-brinquedo`, {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(entrarFilaRequestDTO)
+            });
+            if(response.ok){            
+            setTimeout(()=>{
+                 getUser();
+                 let btnDequeue = document.getElementById("dequeue");        
+                 btnDequeue.style.display = 'block'
+            },3000)
+            
+            }
+        }
+        
+    })
+    document.getElementById("dequeue").addEventListener("click", async function(e){
+        e.preventDefault();        
+        const response = await fetch(`${Constants.API_BASE_URL}/user/${CAROUSEL.cards.currentNode.value.conteudo.id}/sair-fila-brinquedo`, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json' 
+            }
+        });
+        if(response.ok){
+            setTimeout(()=>{
+                getUser();
+                let btnDequeue = document.getElementById("dequeue");        
+                btnDequeue.style.display = 'none'
+           },3000)
+           
+        }
+    });   
+         
+    document.getElementById("main-l-sidebar-close-btn").addEventListener("click",async function name(e) {
+        e.preventDefault();
+        getUser();       
+    })
+
     let transicaoCardAcontecendo = false;
     let movimentosRestantes = 0;
     let moverCardsParaDireita = true;
@@ -33,12 +91,11 @@ ready(async () => {
     do{
 
         let cardAtual = CAROUSEL.cards.currentNode.value;
-
-        // Configuração inicial
         cardAtual.elemento.getElementsByClassName("atracao-card-footer")[0].innerHTML = cardAtual.conteudo.nome;
-        cardAtual.elemento.style.backgroundImage = `url("data:image/jpeg;base64,${cardAtual.conteudo.imagemBase64}")`;
-    
-        cardAtual.elemento.addEventListener("click", e => {
+        cardAtual.elemento.style.backgroundImage = `url("data:image/jpeg;base64,${cardAtual.conteudo.imagemBase64}")`;    
+
+        // Configuração inicial            
+        cardAtual.elemento.addEventListener("click", e => {                   
     
             // Extremidades possuem cards invisíveis, e o meio é para visualizar a atração
             // Se tiver no meio de uma animação cancela
@@ -105,9 +162,9 @@ ready(async () => {
     CAROUSEL.elemento.style.display = "flex";
 
     function moverParaProximoCard(){
-
         movimentosRestantes--;
 
+         msgEntrarFila.style.display = 'none'
         CAROUSEL.irParaCardInicial();
         
         do{
@@ -171,6 +228,21 @@ ready(async () => {
             else
                 stringDuracao += "menos de 1 minuto";
         }
-        SIDEBAR_ATRACAO_DURACAO.innerHTML = stringDuracao;
+        SIDEBAR_ATRACAO_DURACAO.innerHTML = stringDuracao;  
+        
+        let btnDequeue = document.getElementById("dequeue");        
+        btnDequeue.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
+    }
+
+    async function getUser() {
+        let userId = localStorage.getItem('userId');
+        userId = Number(userId);
+         let response = await fetch(`${Constants.API_BASE_URL}/user/${userId}`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json' 
+            }
+         })
+         usuario = await response.json()
     }
 });
