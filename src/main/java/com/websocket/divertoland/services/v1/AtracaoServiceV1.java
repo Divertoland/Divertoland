@@ -3,11 +3,9 @@ package com.websocket.divertoland.services.v1;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.websocket.divertoland.domain.Atracao;
@@ -27,9 +25,7 @@ public class AtracaoServiceV1 implements AtracaoService {
     @Value("${azure.blob.image.container.atracoes}")
     private String _atracoesImageContainerName;
 
-    @Async
-    public CompletableFuture<List<Atracao>> listAtracoesAsync() { return CompletableFuture.supplyAsync(() ->
-    {
+    public List<Atracao> listAtracoesAsync() { 
         var atracoes = _atracaoRepository.findAll();
         for (Atracao atracao : atracoes) {
             try (InputStream blobStream = _azureBlobService.downloadFile(_atracoesImageContainerName, atracao.getImgName())) {
@@ -40,5 +36,5 @@ public class AtracaoServiceV1 implements AtracaoService {
             }
         }
         return atracoes;
-    });}
+    }
 }

@@ -1,14 +1,10 @@
 package com.websocket.divertoland.services.abstractions;
 
-import java.util.concurrent.CompletableFuture;
-
-import com.websocket.divertoland.domain.Usuario;
 import com.websocket.divertoland.domain.dto.EntrarFilaRequestDTO;
-import com.websocket.divertoland.domain.dto.LoginDTO;
 
 public interface UsuarioService
 {
-    CompletableFuture<Void> entrarNaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
-    CompletableFuture<Void> sairDaFila(Long atracaoId);
-    CompletableFuture<Integer> posicaoDaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
+    void entrarNaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
+    void sairDaFila(Long atracaoId);
+    int posicaoDaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
 }
