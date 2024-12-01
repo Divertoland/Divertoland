@@ -15,7 +15,7 @@ import io.jsonwebtoken.Jwts;
 @Component
 public class JWTHelper {
 
-	public static final long expiration = 5 * 60 * 1000;
+	public static final long expiration = 20 * 60 * 1000;
 	private static final SecretKey key = Jwts.SIG.HS512.key().build();
 	
 	public String generateToken(Authentication authentication) {
