@@ -3,10 +3,7 @@ const ready = fn => document.readyState !== 'loading' ? fn() : document.addEvent
 ready(() => {
     "use strict";
 
-    let INPUT_USUARIO = document.getElementById("input-usuario"),
-        ERROR_INPUT_USUARIO = document.getElementById("error-input-usuario"),
-
-        INPUT_EMAIL = document.getElementById("input-email"),
+    let INPUT_EMAIL = document.getElementById("input-email"),    
         ERROR_INPUT_EMAIL = document.getElementById("error-input-email"),
 
         INPUT_SENHA = document.getElementById("input-senha"),
@@ -14,25 +11,13 @@ ready(() => {
 
     let TERTIARY_THEME_COLOR = window.getComputedStyle(document.body).getPropertyValue('--tertiary-theme-color');
 
-    document.forms["input-cadastro"].addEventListener("submit", function(e){
+    document.forms["input-login"].addEventListener("submit", function(e){
 
         e.preventDefault();
 
-        let validateResult = true;
-        let nome = document.forms["input-cadastro"]["input-usuario"].value;
-        let email = document.forms["input-cadastro"]["input-email"].value;
-        let senha = document.forms["input-cadastro"]["input-senha"].value;
-
-        let resultValidateUsuario = validateUsuario();
-        if(resultValidateUsuario !== true){
-            ERROR_INPUT_USUARIO.innerHTML = resultValidateUsuario;
-            INPUT_USUARIO.style.borderColor = "red";
-            validateResult = false;
-        }
-        else{
-            INPUT_USUARIO.style.borderColor = TERTIARY_THEME_COLOR;
-            ERROR_INPUT_USUARIO.innerHTML = ".";
-        }
+        let validateResult = true;        
+        let email = document.forms["input-login"]["input-email"].value
+        let senha = document.forms["input-login"]["input-senha"].value
 
         let resultValidateEmail = validateEmail();
         if(resultValidateEmail !== true){
@@ -44,7 +29,7 @@ ready(() => {
             INPUT_EMAIL.style.borderColor = TERTIARY_THEME_COLOR;
             ERROR_INPUT_EMAIL.innerHTML = ".";
         }
-
+        
         let resultValidateSenha = validateSenha();
         if(resultValidateSenha !== true){
             INPUT_SENHA.style.borderColor = "red";
@@ -57,33 +42,23 @@ ready(() => {
         }
 
         if(validateResult === false){
-            for(let input of document.getElementsByClassName("input-error-cadastro")){
+            for(let input of document.getElementsByClassName("input-error-login")){
                 input.style.visibility = input.innerHTML.trim() !== "." ? "visible" : "hidden";
             }
-        }else{
-            cadastroRequest(nome,email,senha)
+        }else{     
+            loginRequest(email,senha)                          
         }
-
     });
 
 })
 
-function validateUsuario(){
-
-    let usuario = document.forms["input-cadastro"]["input-usuario"].value;
-
-    if (usuario == null || usuario.trim() == "")
-        return "Preencha o nome do usuário";
-
-    return true;
-}
-
 function validateEmail(){
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    let email = document.forms["input-cadastro"]["input-email"].value;
+
+    let email = document.forms["input-login"]["input-email"].value;
 
     if (email == null || email.trim() == ""){
-        return "Preencha o email";
+        return "Preencha o e-mail";
     }
     if(!emailRegex.test(email)){
         return "E-mail inválido"
@@ -93,35 +68,54 @@ function validateEmail(){
 
 function validateSenha(){
     const passwordRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
-    let senha = document.forms["input-cadastro"]["input-senha"].value;
+    let senha = document.forms["input-login"]["input-senha"].value;
     if (!passwordRegex.test(senha)) {
-        return "A senha precisa ter no mínimo 8 caracteres e no mínimo 1 caracter especial";
+        return "Senha inválida";
     }
     return true;
 }
-
-async function cadastroRequest(nome,email,senha) {
+async function loginRequest(email,senha) {
     try {
-        const response = await fetch(`${Constants.API_BASE_URL}/user/cadastro`, {
-            method: 'POST', 
+        const response = await fetch(`${Constants.API_ROUTE}/auth/login`, {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN')
             },
             body: JSON.stringify({
-                nome: nome,
                 email:email,
                 senha:senha
             })
-        });
+        })
 
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
-        document.forms["input-cadastro"].reset();
-        return window.location.href = "/login"
+        else{
+            await fetch(`${Constants.API_BASE_URL}/usuario/get`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN') 
+                    },
+                    body: JSON.stringify({
+                        email:email,
+                        senha:senha
+                    })
+                })
+                .then(result => result.json())
+                .then(bodyResult => localStorage.setItem('userId', bodyResult.id));
+
+            document.forms["input-login"].reset();
+            return window.location.href = "/"
+        }
     } catch (error) {
-        console.error('Erro ao realizar cadastroRequest com body:', error);
+        console.error('Erro ao realizar loginRequest com body:', error);
         throw error;
     }
 }
+
+
+
 

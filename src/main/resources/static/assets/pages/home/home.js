@@ -41,10 +41,11 @@ ready(async () => {
             msgEntrarFila.innerHTML = `Você já está na fila da atração: ${usuario?.atracao?.nome}`;
         }        
         if (atracaoDTO.id == null || atracaoDTO.id == undefined) {
-            const response = await fetch(`${Constants.API_BASE_URL}/user/entrar-fila-brinquedo`, {
+            const response = await fetch(`${Constants.API_BASE_URL}/usuario/entrar-fila-brinquedo`, {
                 method: 'POST', 
                 headers: {
-                    'Content-Type': 'application/json' 
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN')
                 },
                 body: JSON.stringify(entrarFilaRequestDTO)
             });
@@ -61,10 +62,11 @@ ready(async () => {
     })
     document.getElementById("dequeue").addEventListener("click", async function(e){
         e.preventDefault();        
-        const response = await fetch(`${Constants.API_BASE_URL}/user/${CAROUSEL.cards.currentNode.value.conteudo.id}/sair-fila-brinquedo`, {
+        const response = await fetch(`${Constants.API_BASE_URL}/usuario/${CAROUSEL.cards.currentNode.value.conteudo.id}/sair-fila-brinquedo`, {
             method: 'POST', 
             headers: {
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN')
             }
         });
         if(response.ok){
@@ -237,7 +239,7 @@ ready(async () => {
     async function getUser() {
         let userId = localStorage.getItem('userId');
         userId = Number(userId);
-         let response = await fetch(`${Constants.API_BASE_URL}/user/${userId}`,{
+         let response = await fetch(`${Constants.API_BASE_URL}/usuario/${userId}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json' 
