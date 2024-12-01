@@ -105,7 +105,8 @@ async function cadastroRequest(nome,email,senha) {
         const response = await fetch(`${Constants.API_ROUTE}/auth/register`, {
             method: 'POST', 
             headers: {
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN')
             },
             body: JSON.stringify({
                 nome: nome,
