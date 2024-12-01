@@ -76,6 +76,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                     return;
                 }
             }
+            else{
+                response.sendRedirect("/login");
+                return;
+            }
         }
         filterChain.doFilter(request, response);
     }
