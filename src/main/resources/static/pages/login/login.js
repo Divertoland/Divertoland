@@ -85,12 +85,15 @@ async function loginRequest(email,senha) {
                 email:email,
                 senha:senha
             })
-        });
+        })
 
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
+
         document.forms["input-login"].reset();
+        let retorno = await response.json();
+        localStorage.setItem('userId', retorno.id);       
         return window.location.href = "/"
     } catch (error) {
         console.error('Erro ao realizar loginRequest com body:', error);

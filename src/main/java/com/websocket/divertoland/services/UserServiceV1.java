@@ -4,6 +4,7 @@ import com.websocket.divertoland.api.config.ComponentConfig;
 import com.websocket.divertoland.domain.Atracao;
 import com.websocket.divertoland.domain.dto.EntrarFilaRequestDTO;
 import com.websocket.divertoland.domain.dto.LoginDTO;
+import com.websocket.divertoland.domain.dto.UsuarioDTO;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.AtracaoRepository;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.UserRepository;
 import com.websocket.divertoland.services.abstractions.UserService;
@@ -92,6 +93,14 @@ public class UserServiceV1 implements UserService {
     public CompletableFuture<Integer> posicaoDaFila(EntrarFilaRequestDTO entrarFilaRequestDTO){
         return CompletableFuture.supplyAsync(() ->
                 _componentConfig.ObterPosicaoFila(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario()));
+    }
+
+    @Async
+    public CompletableFuture<UsuarioDTO> findById(Long usuarioId){
+        return CompletableFuture.supplyAsync(() ->{
+                 var usuario =userRepository.findById(usuarioId).orElseThrow();
+                 return new UsuarioDTO(usuario);
+    });
     }
 
 

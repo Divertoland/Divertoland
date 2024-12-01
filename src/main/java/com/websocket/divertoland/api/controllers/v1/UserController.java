@@ -66,4 +66,13 @@ public class UserController {
             return ResponseEntity.ok(posicao);
         });
     }
+
+    @Async
+    @GetMapping("{userId}")
+    public CompletableFuture<ResponseEntity<?>> findById(@PathVariable Long userId){
+        return CompletableFuture.supplyAsync(() -> {
+        var user = _userService.findById(userId).join();
+        return ResponseEntity.ok(user);
+        });
+    }
 }
