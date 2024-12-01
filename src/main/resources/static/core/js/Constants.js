@@ -1,3 +1,3 @@
 class Constants{
-    static BASE_URL = "v1";
+    static API_BASE_URL = "api/v1";
 }

@@ -18,7 +18,7 @@ import com.websocket.divertoland.services.abstractions.AtracaoService;
 
 @Controller
 @RestController
-@RequestMapping("/v1/data/atracao")
+@RequestMapping("api/v1/atracao")
 public class AtracaoController {
 
     @Autowired

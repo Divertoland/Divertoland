@@ -6,7 +6,7 @@ ready(async () => {
     let atracoes = null;
     let usuario = null;
 
-    await fetch(`${Constants.BASE_URL}/data/atracao/list`)
+    await fetch(`${Constants.API_BASE_URL}/atracao/list`)
         .then(result => result.json())
         .then(bodyResult => atracoes = bodyResult);
 
