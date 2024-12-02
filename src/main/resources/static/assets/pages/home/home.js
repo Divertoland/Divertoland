@@ -29,11 +29,6 @@ ready(async () => {
 
     let msgEntrarFila =document.getElementById("msg-entrar-fila")    
     msgEntrarFila.style.display = 'none';
-    let msgPosicao = document.getElementById("posicao");   
-    msgPosicao.style.display = 'none';
-    let btnPosicao = document.getElementById("position-queue");
-    btnPosicao.style.display = 'none';
-   
 
     document.getElementById("enqueue").addEventListener("click", async function(e){
         e.preventDefault();
@@ -62,13 +57,12 @@ ready(async () => {
                 body: JSON.stringify(entrarFilaRequestDTO)
             });
             if(response.ok){            
-            setTimeout(()=>{
-                 getUser();
-                 let btnDequeue = document.getElementById("dequeue");        
-                 btnDequeue.style.display = 'block';
-                 btnPosicao.style.display = 'block';
-            },3000)
-            
+                setTimeout(()=>{
+                    getUser();
+                    let btnDequeue = document.getElementById("dequeue");        
+                    btnDequeue.style.display = 'block';
+                    btnPosicao.style.display = 'block';
+                },3000)
             }
         }
         
@@ -244,10 +238,18 @@ ready(async () => {
         stringDuracao += tempoDuracaoEmMin > 1 ? tempoDuracaoEmMin + " minutos" : tempoDuracaoEmMin + " minuto";
         SIDEBAR_ATRACAO_DURACAO.innerHTML = stringDuracao;  
         
-        if (usuario?.posicaoFila === null) {
-            SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML += (CAROUSEL.cardSelecionado.conteudo.tamanhoFila / capacidadeAtracao) * tempoDuracaoEmMin;
+        if (usuario?.posicaoFila === null || usuario?.atracao?.id != CAROUSEL.cardSelecionado.conteudo.id) {
+            let tempoEsperaAtracao = Math.round((CAROUSEL.cardSelecionado.conteudo.tamanhoFila / capacidadeAtracao) * tempoDuracaoEmMin);
+            SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML = tempoEsperaAtracao <= 1 ? "Tempo de espera:  Menos de 1 minuto!" : "Tempo de espera: " + tempoEsperaAtracao + " minutos";
         } else {
-            SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML += (usuario?.posicaoFila / capacidadeAtracao) * tempoDuracaoEmMin;
+            let tempoEsperaAtracao = Math.round((usuario?.posicaoFila / capacidadeAtracao) * tempoDuracaoEmMin);
+            if (usuario?.posicaoFila <= capacidadeAtracao) {
+                SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML = "Sua vez já chegou! Vá até a atração!";
+            } else if ((usuario?.posicaoFila - capacidadeAtracao) <= capacidadeAtracao) {
+                SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML = "Você é o próximo! Vá até a atração!"
+            } else {
+                SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML = "Tempo de espera: " + tempoEsperaAtracao + " minutos";
+            }
         }
         
         let btnDequeue = document.getElementById("dequeue");        
@@ -266,7 +268,7 @@ ready(async () => {
             headers: {
                 'Content-Type': 'application/json'
             }
-         })
-         usuario = await response.json()
+        })
+        usuario = await response.json()
     }
 });
