@@ -1,9 +1,9 @@
 package com.websocket.divertoland.infrastructure.abstractions.repositories;
 
-import com.websocket.divertoland.domain.Usuario;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.websocket.divertoland.domain.models.Usuario;
 
 import java.util.Optional;
 

@@ -1,6 +1,7 @@
-package com.websocket.divertoland.domain.dto;
+package com.websocket.divertoland.domain.dtos;
 
-import com.websocket.divertoland.domain.Usuario;
+import com.websocket.divertoland.domain.models.Usuario;
+
 import lombok.Data;
 
 @Data

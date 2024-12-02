@@ -239,12 +239,12 @@ ready(async () => {
     async function getUser() {
         let userId = localStorage.getItem('userId');
         userId = Number(userId);
-         let response = await fetch(`${Constants.API_BASE_URL}/usuario/${userId}`,{
+        let response = await fetch(`${Constants.API_BASE_URL}/usuario/id/${userId}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json' 
             }
-         })
-         usuario = await response.json()
+        })
+        usuario = await response.json()
     }
 });

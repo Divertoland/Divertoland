@@ -2,14 +2,14 @@ package com.websocket.divertoland.services.v1;
 
 import com.websocket.divertoland.api.config.ComponentConfig;
 import com.websocket.divertoland.api.config.security.CustomPasswordEncoder;
-import com.websocket.divertoland.domain.Atracao;
-import com.websocket.divertoland.domain.dto.EntrarFilaRequestDTO;
-import com.websocket.divertoland.domain.dto.LoginDTO;
-import com.websocket.divertoland.domain.dto.UsuarioDTO;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.AtracaoRepository;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.UsuarioRepository;
 import com.websocket.divertoland.services.abstractions.UsuarioService;
-import com.websocket.divertoland.domain.Usuario;
+import com.websocket.divertoland.domain.dtos.EntrarFilaRequestDTO;
+import com.websocket.divertoland.domain.dtos.LoginDTO;
+import com.websocket.divertoland.domain.dtos.UsuarioDTO;
+import com.websocket.divertoland.domain.models.Atracao;
+import com.websocket.divertoland.domain.models.Usuario;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -29,12 +29,8 @@ public class UsuarioServiceV1 implements UsuarioService  {
     @Autowired
     private AtracaoRepository _atracaoRepository;
 
-    @Autowired
-    private CustomPasswordEncoder _passwordEncoder;
-
-    public Usuario getUsuarioByLogin(LoginDTO loginDTO) {
-        loginDTO.setSenha(_passwordEncoder.encode(loginDTO.getSenha()));
-        return _usuarioRepository.findByEmailAndSenha(loginDTO.getEmail(), loginDTO.getSenha()).orElseThrow();
+    public Usuario getUsuarioByEmail(String email) {
+        return _usuarioRepository.findByEmail(email).orElseThrow();
     }
     
     public void entrarNaFila(EntrarFilaRequestDTO entrarFilaRequestDTO){
@@ -48,13 +44,9 @@ public class UsuarioServiceV1 implements UsuarioService  {
     public void sairDaFila(Long atracaoId){
         var usuario = _componentConfig.getInicio(atracaoId);
         _componentConfig.RemoverUsuarioFila(atracaoId);
-        Usuario usuarioBD = _usuarioRepository.findById(usuario.usuario.getId()).orElseThrow();
+        Usuario usuarioBD = _usuarioRepository.findById(usuario.value.getId()).orElseThrow();
         usuarioBD.setAtracao(null);
         _usuarioRepository.save(usuarioBD);
-    }
-    
-    public int posicaoDaFila(EntrarFilaRequestDTO entrarFilaRequestDTO){
-        return _componentConfig.ObterPosicaoFila(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
     }
 
     public UsuarioDTO findById(Long usuarioId){

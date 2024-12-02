@@ -1,15 +1,13 @@
 package com.websocket.divertoland.services.abstractions;
 
-import com.websocket.divertoland.domain.Usuario;
-import com.websocket.divertoland.domain.dto.EntrarFilaRequestDTO;
-import com.websocket.divertoland.domain.dto.LoginDTO;
-import com.websocket.divertoland.domain.dto.UsuarioDTO;
+import com.websocket.divertoland.domain.dtos.EntrarFilaRequestDTO;
+import com.websocket.divertoland.domain.dtos.UsuarioDTO;
+import com.websocket.divertoland.domain.models.Usuario;
 
 public interface UsuarioService
 {
-    Usuario getUsuarioByLogin(LoginDTO loginDTO);
+    Usuario getUsuarioByEmail(String email);
     void entrarNaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
     void sairDaFila(Long atracaoId);
-    int posicaoDaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
     UsuarioDTO findById(Long usuarioId);
 }
