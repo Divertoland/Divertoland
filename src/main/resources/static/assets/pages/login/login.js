@@ -97,7 +97,7 @@ async function loginRequest(email,senha) {
                     headers: { 'Content-Type': 'application/json', },
                 })
                 .then(result => result.json())
-                .then(bodyResult => localStorage.setItem('userId', bodyResult.id));
+                .then(bodyResult => localStorage.setItem('email', bodyResult.email));
 
             document.forms["input-login"].reset();
             return window.location.href = "/"

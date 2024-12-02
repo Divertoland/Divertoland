@@ -23,6 +23,7 @@ ready(async () => {
     const SIDEBAR_ATRACAO_DESCRICAO = document.getElementById("sidebar-atracao-descricao");
     const SIDEBAR_ATRACAO_CAPACIDADE = document.getElementById("sidebar-atracao-capacidade");
     const SIDEBAR_ATRACAO_DURACAO = document.getElementById("sidebar-atracao-duracao");
+    const SIDEBAR_USUARIO_TEMPO_ESPERA = document.getElementById("sidebar-usuario-tempo-espera");
 
     setConteudoCardSelecionado()
 
@@ -243,26 +244,22 @@ ready(async () => {
     }
 
     function setConteudoCardSelecionado(){
+        let capacidadeAtracao = CAROUSEL.cardSelecionado.conteudo.capacidade;
         SIDEBAR_ATRACAO_TITLE.innerHTML = CAROUSEL.cardSelecionado.conteudo.nome;
         SIDEBAR_ATRACAO_IMG.setAttribute("src", `data:image/jpeg;base64,${CAROUSEL.cardSelecionado.conteudo.imagemBase64}`);
         SIDEBAR_ATRACAO_DESCRICAO.innerHTML = CAROUSEL.cardSelecionado.conteudo.descricao;
-        SIDEBAR_ATRACAO_CAPACIDADE.innerHTML = `${CAROUSEL.cardSelecionado.conteudo.capacidade} pessoa(s) por vez`;
+        SIDEBAR_ATRACAO_CAPACIDADE.innerHTML = `${capacidadeAtracao} pessoa(s) por vez`;
 
         let stringDuracao = "";
         let tempoDuracaoEmMin = CAROUSEL.cardSelecionado.conteudo.duracao;
-        if(tempoDuracaoEmMin > 60){
-            stringDuracao += Math.floor(tempoDuracaoEmMin / 60) + " horas";
-            let minutos = tempoDuracaoEmMin % 60;
-            if(minutos > 0)
-                stringDuracao += " e " + minutos + " minutos";
-        }
-        else{
-            if(tempoDuracaoEmMin > 0)
-                stringDuracao += tempoDuracaoEmMin + " minutos";
-            else
-                stringDuracao += "menos de 1 minuto";
-        }
+        stringDuracao += tempoDuracaoEmMin > 1 ? tempoDuracaoEmMin + " minutos" : tempoDuracaoEmMin + " minuto";
         SIDEBAR_ATRACAO_DURACAO.innerHTML = stringDuracao;  
+        
+        if (usuario.posicaoFila === null) {
+            SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML += (CAROUSEL.cardSelecionado.conteudo.tamanhoFila / capacidadeAtracao) * tempoDuracaoEmMin;
+        } else {
+            SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML += (usuario.posicaoFila / capacidadeAtracao) * tempoDuracaoEmMin;
+        }
         
         let btnDequeue = document.getElementById("dequeue");        
         btnDequeue.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
@@ -273,12 +270,11 @@ ready(async () => {
     }
 
     async function getUser() {
-        let userId = localStorage.getItem('userId');
-        userId = Number(userId);
-        let response = await fetch(`${Constants.API_BASE_URL}/usuario/id/${userId}`,{
+        let userEmail = localStorage.getItem('email');
+        let response = await fetch(`${Constants.API_BASE_URL}/usuario/id/${userEmail}`,{
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json'
             }
         })
         usuario = await response.json()
