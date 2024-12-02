@@ -37,7 +37,9 @@ public class UsuarioServiceV1 implements UsuarioService  {
         _filasAtracoes.AdicionarUsuarioHashMp(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
         Usuario usuarioBD = _usuarioRepository.findById(entrarFilaRequestDTO.getUsuario().getId()).orElseThrow();
         Atracao atracao = _atracaoRepository.findById(entrarFilaRequestDTO.getAtracaoId()).orElseThrow();
+        var posicao = _filasAtracoes.ObterPosicaoFila(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
         usuarioBD.setAtracao(atracao);
+        usuarioBD.setPosicaoFila(posicao);
         _usuarioRepository.save(usuarioBD);
     }
     

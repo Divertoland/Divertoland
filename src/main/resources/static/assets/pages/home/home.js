@@ -96,20 +96,8 @@ ready(async () => {
     
     document.getElementById("position-queue").addEventListener("click", async function(e){
         e.preventDefault();
-        let atracaoDTO = new AtracaoDTO(usuario?.atracao?.id,usuario?.atracao?.nome);
-        let usuarioDTO = new UsuarioDTO(usuario.id,usuario.nome,atracaoDTO);
-        let entrarFilaRequestDTO = new EntrarFilaRequestDTO(usuarioDTO,CAROUSEL.cards.currentNode.value.conteudo.id)
-        let response = await fetch(`${Constants.API_BASE_URL}/usuario/posicao-fila`,{
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json',
-                'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN')
-            },
-            body:  JSON.stringify(entrarFilaRequestDTO)
-        });
-        let posicao = await response.json();  
         msgPosicao.style.display = 'block';     
-        msgPosicao.innerHTML = `Sua posição na fila: ${posicao}`
+        msgPosicao.innerHTML = `Sua posição na fila: ${usuario?.atracao?.posicaoFila}`
         })
          
     document.getElementById("main-l-sidebar-close-btn").addEventListener("click",async function name(e) {
@@ -255,10 +243,10 @@ ready(async () => {
         stringDuracao += tempoDuracaoEmMin > 1 ? tempoDuracaoEmMin + " minutos" : tempoDuracaoEmMin + " minuto";
         SIDEBAR_ATRACAO_DURACAO.innerHTML = stringDuracao;  
         
-        if (usuario.posicaoFila === null) {
+        if (usuario?.posicaoFila === null) {
             SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML += (CAROUSEL.cardSelecionado.conteudo.tamanhoFila / capacidadeAtracao) * tempoDuracaoEmMin;
         } else {
-            SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML += (usuario.posicaoFila / capacidadeAtracao) * tempoDuracaoEmMin;
+            SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML += (usuario?.posicaoFila / capacidadeAtracao) * tempoDuracaoEmMin;
         }
         
         let btnDequeue = document.getElementById("dequeue");        
@@ -271,12 +259,12 @@ ready(async () => {
 
     async function getUser() {
         let userEmail = localStorage.getItem('email');
-        let response = await fetch(`${Constants.API_BASE_URL}/usuario/id/${userEmail}`,{
+        let response = await fetch(`${Constants.API_BASE_URL}/usuario/email/${userEmail}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
-        })
-        usuario = await response.json()
+         })
+         usuario = await response.json()
     }
 });

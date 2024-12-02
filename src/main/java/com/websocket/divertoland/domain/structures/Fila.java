@@ -1,5 +1,7 @@
 package com.websocket.divertoland.domain.structures;
 
+import com.websocket.divertoland.domain.dtos.UsuarioDTO;
+
 public class Fila<T> {
     private No<T> inicio, fim;
     private int tamanho;
