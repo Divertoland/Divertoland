@@ -1,10 +1,23 @@
-# Proposta A3 - Estrutura de dados e algoritmos
+# 🎢Divertoland
 
-## Tema: Gerenciamento de clientes e filas em parques de diversões
-Para esse projeto usaremos duas estruturas de dados: Listas e Filas
+<!-- <p align="center">
+    <img src="arquivosReadme/" alt="drawing" />
+</p> -->
 
-### Filas
-As filas serão usadas pelo usuário, aonde ele terá uma aplicação web no seu celular e poderá entrar em filas de brinquedos de maneira remota, e o aplicativo avisará a pessoa qual a posição dela na fila e o tempo aproximado de espera. Assim que estiver faltando apenas 5 pessoas, o celular da pessoa enviará uma notificação avisando a pessoa para ir até a atração.
+Sistema de filas virtuais para parques de diversões, com o intuito de diminuir as filas quilométricas e facilitar a organização das atrações.
 
-### Listas
-As listas serão usadas pelo gerente do parque de diversões, que terá acesso aos usuários que se cadastraram naquele dia para filas online. Ali o gerente terá acesso ao nome e idade do usuário, e saberá se o usuário está em alguma fila ou se está apenas andando pelo parque.
+## ⚙️Tecnologias utilizadas
+Para executar o projeto localmente é necessário instalar:
+- Java 17. Possível instalar pela [Oracle](https://www.oracle.com/java/technologies/downloads/#java17).
+- Spring Boot
+- JavaScript
+- Bootstrap
+- Azure MySql
+- Azure Web App
+- Azure Storage Account
+- Azure Container Registry.
+
+
+
+### **🚨Observação**
+*Não é possível executar o projeto localmente pois são necessárias as variáveis de ambiente, das quais possuem dados sensíveis de acesso a serviços da Azure. Caso queira acessar o site, clique [aqui](https://divertoland.azurewebsites.net).*
