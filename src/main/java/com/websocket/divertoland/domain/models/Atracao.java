@@ -22,4 +22,6 @@ public class Atracao {
 
     @Transient
     private String imagemBase64;
+    @Transient
+    private int tamanhoFila;
 }
