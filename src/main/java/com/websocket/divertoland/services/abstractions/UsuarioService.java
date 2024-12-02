@@ -8,6 +8,6 @@ public interface UsuarioService
 {
     Usuario getUsuarioByEmail(String email);
     void entrarNaFila(EntrarFilaRequestDTO entrarFilaRequestDTO);
-    void sairDaFila(Long atracaoId);
+    void sairDaFila(long usuarioId, Long atracaoId);
     UsuarioDTO findById(Long usuarioId);
 }

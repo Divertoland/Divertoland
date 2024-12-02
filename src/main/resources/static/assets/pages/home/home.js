@@ -73,8 +73,8 @@ ready(async () => {
     })
     document.getElementById("dequeue").addEventListener("click", async function(e){
         e.preventDefault();        
-        const response = await fetch(`${Constants.API_BASE_URL}/usuario/${CAROUSEL.cards.currentNode.value.conteudo.id}/sair-fila-brinquedo`, {
-            method: 'POST', 
+        const response = await fetch(`${Constants.API_BASE_URL}/usuario/id/${usuario.id}/atracao/id/${CAROUSEL.cards.currentNode.value.conteudo.id}/sair-fila-brinquedo`, {
+            method: 'DELETE', 
             headers: {
                 'Content-Type': 'application/json',
                 'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN')

@@ -1,20 +1,17 @@
 package com.websocket.divertoland.services.v1;
 
 import com.websocket.divertoland.api.config.components.FilasAtracoes;
-import com.websocket.divertoland.api.config.security.CustomPasswordEncoder;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.AtracaoRepository;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.UsuarioRepository;
 import com.websocket.divertoland.services.abstractions.UsuarioService;
 import com.websocket.divertoland.domain.dtos.EntrarFilaRequestDTO;
-import com.websocket.divertoland.domain.dtos.LoginDTO;
 import com.websocket.divertoland.domain.dtos.UsuarioDTO;
 import com.websocket.divertoland.domain.models.Atracao;
 import com.websocket.divertoland.domain.models.Usuario;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,12 +40,24 @@ public class UsuarioServiceV1 implements UsuarioService  {
         _usuarioRepository.save(usuarioBD);
     }
     
-    public void sairDaFila(Long atracaoId){
-        var usuario = _filasAtracoes.getInicio(atracaoId);
-        _filasAtracoes.RemoverUsuarioFila(atracaoId);
-        Usuario usuarioBD = _usuarioRepository.findById(usuario.value.getId()).orElseThrow();
+    public void sairDaFila(long usuarioId, Long atracaoId){
+
+        Usuario usuarioBD = _usuarioRepository
+            .findById(usuarioId)
+            .orElseThrow(() -> new NoSuchElementException("Não foi encontrado o usuário de ID " + usuarioId));
+        
+        _filasAtracoes.listarFila(atracaoId);
+        
+        _filasAtracoes.removerUsuarioFila(usuarioId, atracaoId);
+        _filasAtracoes.listarFila(atracaoId);
+
+        var posicaoFilaUsuarioRemovido = usuarioBD.getPosicaoFila();
+
         usuarioBD.setAtracao(null);
+        usuarioBD.setPosicaoFila(0);
         _usuarioRepository.save(usuarioBD);
+
+        _usuarioRepository.updatePosicoesFila(posicaoFilaUsuarioRemovido, atracaoId);
     }
 
     public UsuarioDTO findById(Long usuarioId){
