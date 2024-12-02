@@ -82,11 +82,11 @@ ready(async () => {
         });
         if(response.ok){
             setTimeout(()=>{
-                getUser();
                 let btnDequeue = document.getElementById("dequeue");        
                 btnDequeue.style.display = 'none'
                 btnPosicao.style.display = 'none';
                 msgPosicao.style.display = 'none';
+                getUser();
            },3000)
            
         }
