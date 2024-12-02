@@ -1,4 +1,4 @@
-package com.websocket.divertoland.domain;
+package com.websocket.divertoland.domain.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.websocket.divertoland.domain.Atracao;
+import com.websocket.divertoland.domain.models.Atracao;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.AtracaoRepository;
 import com.websocket.divertoland.services.abstractions.AtracaoService;
 import com.websocket.divertoland.services.external.AzureBlobService;

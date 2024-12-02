@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.websocket.divertoland.api.config.security.helpers.JWTHelper;
-import com.websocket.divertoland.domain.Usuario;
-import com.websocket.divertoland.domain.dto.LoginDTO;
+import com.websocket.divertoland.domain.dtos.LoginDTO;
+import com.websocket.divertoland.domain.models.Usuario;
 import com.websocket.divertoland.services.security.AuthService;
 
 import jakarta.servlet.http.Cookie;

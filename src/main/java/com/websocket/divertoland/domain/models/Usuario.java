@@ -1,4 +1,6 @@
-package com.websocket.divertoland.domain;
+package com.websocket.divertoland.domain.models;
+
+import com.websocket.divertoland.domain.enums.Role;
 
 import jakarta.persistence.*;
 import lombok.Data;

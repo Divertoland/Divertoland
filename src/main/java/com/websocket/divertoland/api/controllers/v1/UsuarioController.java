@@ -1,8 +1,6 @@
 package com.websocket.divertoland.api.controllers.v1;
 
-import com.websocket.divertoland.api.config.ComponentConfig;
-import com.websocket.divertoland.domain.dto.EntrarFilaRequestDTO;
-import com.websocket.divertoland.domain.dto.LoginDTO;
+import com.websocket.divertoland.domain.dtos.EntrarFilaRequestDTO;
 import com.websocket.divertoland.services.abstractions.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +14,10 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService _usuarioService;
-    @Autowired
-    private ComponentConfig _componentConfig;
 
-    @PostMapping("/get")
-    public ResponseEntity<?> getUsuarioByLogin(@RequestBody LoginDTO loginDTO){
-        var user = _usuarioService.getUsuarioByLogin(loginDTO);
+    @GetMapping("/email/{emailUsuario}")
+    public ResponseEntity<?> getUsuarioByEmail(@PathVariable String emailUsuario){
+        var user = _usuarioService.getUsuarioByEmail(emailUsuario);
         return ResponseEntity.ok(user);
     }
 
@@ -37,13 +33,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/posicao-fila")
-    public ResponseEntity<?>obterPosicaoFila(@RequestBody EntrarFilaRequestDTO entrarFilaRequestDTO){
-        var posicao = _usuarioService.posicaoDaFila(entrarFilaRequestDTO);
-        return ResponseEntity.ok(posicao);
-    }
-
-    @GetMapping("{userId}")
+    @GetMapping("/id/{userId}")
     public ResponseEntity<?> findById(@PathVariable Long userId){
         var user = _usuarioService.findById(userId);
         return ResponseEntity.ok(user);
