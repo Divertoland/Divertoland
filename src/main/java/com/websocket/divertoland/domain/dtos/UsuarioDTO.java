@@ -8,8 +8,8 @@ import lombok.Data;
 public class UsuarioDTO {
     private Long id;
     private String nome;
-    private AtracaoDTO atracao;
     private int posicaoFila;
+    private AtracaoDTO atracao;    
 
     public UsuarioDTO(Usuario usuario) {
         this.id = usuario.getId();

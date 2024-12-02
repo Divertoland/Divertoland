@@ -28,7 +28,6 @@ public class FilasAtracoes {
             filasAtracoes.get(atracaoId).dequeue();
         }
     }
-
     public No<UsuarioDTO> getInicio(Long atracaoId){
         return filasAtracoes.get(atracaoId).getInicio();
     }
@@ -43,5 +42,9 @@ public class FilasAtracoes {
 
     public boolean atracaoPossuiFila(long atracaoId){
         return filasAtracoes.possuiChave(atracaoId);
+    }
+
+    public int ObterPosicaoFila(Long atracaoId, UsuarioDTO usuario){
+        return filasAtracoes.get(atracaoId).index(usuario);
     }
 }

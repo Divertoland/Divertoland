@@ -1,5 +1,7 @@
 package com.websocket.divertoland.domain.structures;
 
+import com.websocket.divertoland.domain.dtos.UsuarioDTO;
+
 public class Fila<T> {
     private No<T> inicio, fim;
     private int tamanho;
@@ -51,18 +53,18 @@ public class Fila<T> {
     public int size() { return tamanho; }
 
     public int index(T valueToFind) {
-        No<T> atual = fim; // Começa pelo fim da fila
-        int posicao = 0;      // Contador para a posição
+        No<T> atual = fim;
+        int posicao = 0;
 
         while (atual != null) {
             if (atual.value.equals(valueToFind))
-                return posicao; // Retorna a posição do usuário se encontrado
+                return posicao;
 
-            atual = atual.proximo; // Move para o próximo nó
+            atual = atual.proximo;
             posicao++;
         }
 
-        return -1; // Retorna -1 se o usuário não estiver na fila
+        return -1;
     }
 
     public void display() {
