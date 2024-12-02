@@ -2,6 +2,9 @@ package com.websocket.divertoland.api.config.components;
 
 import com.websocket.divertoland.domain.dtos.UsuarioDTO;
 import com.websocket.divertoland.domain.structures.Fila;
+
+import java.util.NoSuchElementException;
+
 import org.springframework.stereotype.Component;
 
 import com.websocket.divertoland.domain.structures.HashMap;
@@ -23,10 +26,35 @@ public class FilasAtracoes {
 
     }
 
-    public void RemoverUsuarioFila(Long atracaoId){
-        if (!filasAtracoes.get(atracaoId).isEmpty()){
-            filasAtracoes.get(atracaoId).dequeue();
+    public void removerUsuarioFila(long usuarioId, Long atracaoId){
+        if (this.getFila(atracaoId).isEmpty()) {
+            throw new NoSuchElementException("A fila está vazia!");
         }
+    
+        No<UsuarioDTO> atual = this.getFila(atracaoId).getInicio();
+        No<UsuarioDTO> anterior = null;
+    
+        while (atual != null) {
+            if (atual.value.getId().equals(usuarioId)) {
+                if (atual == this.getFila(atracaoId).getInicio()) {
+                    this.getFila(atracaoId).setInicio(atual.proximo);
+                    if (this.getFila(atracaoId).getInicio() == null) {
+                        this.getFila(atracaoId).setFim(null);
+                    }
+                } else {
+                    anterior.proximo = atual.proximo;
+                    if (atual == this.getFila(atracaoId).getFim()) {
+                        this.getFila(atracaoId).setFim(anterior);
+                    }
+                }
+                return;
+            }
+    
+            anterior = atual;
+            atual = atual.proximo;
+        }
+    
+        throw new NoSuchElementException("Usuário não encontrado na fila!");
     }
     public No<UsuarioDTO> getInicio(Long atracaoId){
         return filasAtracoes.get(atracaoId).getInicio();
