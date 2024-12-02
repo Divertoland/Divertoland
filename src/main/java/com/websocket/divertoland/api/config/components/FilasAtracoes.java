@@ -75,4 +75,8 @@ public class FilasAtracoes {
     public int ObterPosicaoFila(Long atracaoId, UsuarioDTO usuario){
         return filasAtracoes.get(atracaoId).index(usuario);
     }
+
+    public int Tamanho(long atracaoId){
+        return filasAtracoes.get(atracaoId).size();
+    }
 }
