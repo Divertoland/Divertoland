@@ -256,6 +256,7 @@ ready(async () => {
         btnPosicao.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
         let msgPosicao = document.getElementById("posicao");
         msgPosicao.style.display = 'none';
+        getUser();
     }
 
     async function getUser() {
