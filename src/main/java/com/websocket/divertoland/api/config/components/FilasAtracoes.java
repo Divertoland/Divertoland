@@ -23,16 +23,9 @@ public class FilasAtracoes {
 
     }
 
-    public void RemoverUsuarioFila(Long atracaoId, long idUsuario){
-        if (this.atracaoPossuiFila(atracaoId)){
-
-            var noAtual = filasAtracoes.get(atracaoId).getFim();
-
-            while(noAtual.value.getId() != idUsuario){
-                noAtual = noAtual.proximo;
-            }
-
-            
+    public void RemoverUsuarioFila(Long atracaoId){
+        if (!filasAtracoes.get(atracaoId).isEmpty()){
+            filasAtracoes.get(atracaoId).dequeue();
         }
     }
 
