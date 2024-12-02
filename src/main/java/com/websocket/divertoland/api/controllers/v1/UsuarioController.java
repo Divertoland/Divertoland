@@ -27,9 +27,9 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/{atracaoId}/sair-fila-brinquedo")
-    public ResponseEntity<?> sairFila(@PathVariable Long atracaoId){
-        _usuarioService.sairDaFila(atracaoId);
+    @DeleteMapping("/id/{usuarioId}/atracao/id/{atracaoId}/sair-fila-brinquedo")
+    public ResponseEntity<?> sairFila(@PathVariable Long usuarioId, @PathVariable long atracaoId){
+        _usuarioService.sairDaFila(usuarioId, atracaoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
