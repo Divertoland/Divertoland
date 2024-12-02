@@ -96,8 +96,9 @@ ready(async () => {
     
     document.getElementById("position-queue").addEventListener("click", async function(e){
         e.preventDefault();
+        getUser();
         msgPosicao.style.display = 'block';     
-        msgPosicao.innerHTML = `Sua posição na fila: ${usuario?.atracao?.posicaoFila}`
+        msgPosicao.innerHTML = `Sua posição na fila: ${usuario?.posicaoFila}`
         })
          
     document.getElementById("main-l-sidebar-close-btn").addEventListener("click",async function name(e) {

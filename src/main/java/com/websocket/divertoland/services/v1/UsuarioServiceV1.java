@@ -39,7 +39,7 @@ public class UsuarioServiceV1 implements UsuarioService  {
         Atracao atracao = _atracaoRepository.findById(entrarFilaRequestDTO.getAtracaoId()).orElseThrow();
         var posicao = _filasAtracoes.ObterPosicaoFila(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
         usuarioBD.setAtracao(atracao);
-        usuarioBD.setPosicaoFila(posicao);
+        usuarioBD.setPosicaoFila(posicao+1);
         _usuarioRepository.save(usuarioBD);
     }
     
