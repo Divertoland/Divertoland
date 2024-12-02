@@ -13,8 +13,6 @@ public class DebugFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws IOException, ServletException {
-        String xsrfToken = request.getHeader("X-XSRF-TOKEN");
-        System.out.println("Received XSRF Token: " + xsrfToken);
         filterChain.doFilter(request, response);
     }
 }

@@ -1,4 +1,6 @@
-package com.websocket.divertoland.domain;
+package com.websocket.divertoland.domain.models;
+
+import com.websocket.divertoland.domain.enums.Role;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,6 +19,7 @@ public class Usuario {
     private Role cargo;
     @ManyToOne
     private Atracao atracao;
+    private int posicaoFila;
 
     public Usuario(){}
     

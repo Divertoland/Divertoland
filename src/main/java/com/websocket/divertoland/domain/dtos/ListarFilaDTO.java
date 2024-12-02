@@ -1,4 +1,4 @@
-package com.websocket.divertoland.domain.dto;
+package com.websocket.divertoland.domain.dtos;
 
 import lombok.Data;
 
