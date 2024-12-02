@@ -29,6 +29,10 @@ ready(async () => {
 
     let msgEntrarFila =document.getElementById("msg-entrar-fila")    
     msgEntrarFila.style.display = 'none';
+    let msgPosicao = document.getElementById("position");
+    msgPosicao.style.display = 'none';
+    let btnPosicao = document.getElementById("position-queue");
+    btnPosicao.style.display = 'none';
 
     document.getElementById("enqueue").addEventListener("click", async function(e){
         e.preventDefault();
@@ -256,7 +260,7 @@ ready(async () => {
         btnDequeue.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
         let btnPosicao = document.getElementById("position-queue");
         btnPosicao.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
-        let msgPosicao = document.getElementById("posicao");
+        let msgPosicao = document.getElementById("position");
         msgPosicao.style.display = 'none';
         getUser();
     }
