@@ -92,17 +92,9 @@ async function loginRequest(email,senha) {
             throw new Error(`Erro: ${response.status}`);
         }
         else{
-            await fetch(`${Constants.API_BASE_URL}/usuario/get`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN') 
-                    },
-                    body: JSON.stringify({
-                        email:email,
-                        senha:senha
-                    })
+            await fetch(`${Constants.API_BASE_URL}/usuario/email/${encodeURIComponent(email)}`,
+                { 
+                    headers: { 'Content-Type': 'application/json', },
                 })
                 .then(result => result.json())
                 .then(bodyResult => localStorage.setItem('userId', bodyResult.id));

@@ -7,9 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.websocket.divertoland.domain.Role;
-import com.websocket.divertoland.domain.Usuario;
-import com.websocket.divertoland.domain.dto.LoginDTO;
+import com.websocket.divertoland.domain.dtos.LoginDTO;
+import com.websocket.divertoland.domain.enums.Role;
+import com.websocket.divertoland.domain.models.Usuario;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.UsuarioRepository;
 
 @Service

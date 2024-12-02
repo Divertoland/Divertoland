@@ -1,4 +1,4 @@
-package com.websocket.divertoland.domain;
+package com.websocket.divertoland.domain.enums;
 
 public enum Role {
     EMPREGADO,
