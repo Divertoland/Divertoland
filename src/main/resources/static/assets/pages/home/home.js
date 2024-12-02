@@ -28,19 +28,30 @@ ready(async () => {
 
     let msgEntrarFila =document.getElementById("msg-entrar-fila")    
     msgEntrarFila.style.display = 'none';
+    let msgPosicao = document.getElementById("posicao");   
+    msgPosicao.style.display = 'none';
+    let btnPosicao = document.getElementById("position-queue");
+    btnPosicao.style.display = 'none';
    
 
     document.getElementById("enqueue").addEventListener("click", async function(e){
         e.preventDefault();
 
-        let atracaoDTO = new AtracaoDTO(usuario?.atracao?.id,usuario?.atracao?.nome);
+        let atracaoDTO = null;
+        if(usuario?.atracao == null || usuario?.atracao == undefined){
+            atracaoDTO = new AtracaoDTO(CAROUSEL.cards.currentNode.value.conteudo.id,CAROUSEL.cards.currentNode.value.conteudo.nome);
+        }
+        else{
+            atracaoDTO = new AtracaoDTO(usuario?.atracao?.id,usuario?.atracao?.nome);
+        }
+         
         let usuarioDTO = new UsuarioDTO(usuario.id,usuario.nome,atracaoDTO);
         let entrarFilaRequestDTO = new EntrarFilaRequestDTO(usuarioDTO,CAROUSEL.cards.currentNode.value.conteudo.id)
         if(atracaoDTO.id != null || atracaoDTO.id != undefined){
             msgEntrarFila.style.display = CAROUSEL.cards.currentNode.value.conteudo.id != atracaoDTO.id ? 'block': 'none'
             msgEntrarFila.innerHTML = `Você já está na fila da atração: ${usuario?.atracao?.nome}`;
         }        
-        if (atracaoDTO.id == null || atracaoDTO.id == undefined) {
+        if (usuario?.atracao?.id == null || usuario?.atracao?.id == undefined) {
             const response = await fetch(`${Constants.API_BASE_URL}/usuario/entrar-fila-brinquedo`, {
                 method: 'POST', 
                 headers: {
@@ -53,7 +64,8 @@ ready(async () => {
             setTimeout(()=>{
                  getUser();
                  let btnDequeue = document.getElementById("dequeue");        
-                 btnDequeue.style.display = 'block'
+                 btnDequeue.style.display = 'block';
+                 btnPosicao.style.display = 'block';
             },3000)
             
             }
@@ -74,10 +86,30 @@ ready(async () => {
                 getUser();
                 let btnDequeue = document.getElementById("dequeue");        
                 btnDequeue.style.display = 'none'
+                btnPosicao.style.display = 'none';
+                msgPosicao.style.display = 'none';
            },3000)
            
         }
-    });   
+    });  
+    
+    document.getElementById("position-queue").addEventListener("click", async function(e){
+        e.preventDefault();
+        let atracaoDTO = new AtracaoDTO(usuario?.atracao?.id,usuario?.atracao?.nome);
+        let usuarioDTO = new UsuarioDTO(usuario.id,usuario.nome,atracaoDTO);
+        let entrarFilaRequestDTO = new EntrarFilaRequestDTO(usuarioDTO,CAROUSEL.cards.currentNode.value.conteudo.id)
+        let response = await fetch(`${Constants.API_BASE_URL}/usuario/posicao-fila`,{
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': Utils.getCookie('XSRF-TOKEN')
+            },
+            body:  JSON.stringify(entrarFilaRequestDTO)
+        });
+        let posicao = await response.json();  
+        msgPosicao.style.display = 'block';     
+        msgPosicao.innerHTML = `Sua posição na fila: ${posicao}`
+        })
          
     document.getElementById("main-l-sidebar-close-btn").addEventListener("click",async function name(e) {
         e.preventDefault();
@@ -234,6 +266,10 @@ ready(async () => {
         
         let btnDequeue = document.getElementById("dequeue");        
         btnDequeue.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
+        let btnPosicao = document.getElementById("position-queue");
+        btnPosicao.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
+        let msgPosicao = document.getElementById("posicao");
+        msgPosicao.style.display = 'none';
     }
 
     async function getUser() {
