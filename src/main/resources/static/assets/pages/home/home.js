@@ -23,24 +23,35 @@ ready(async () => {
     const SIDEBAR_ATRACAO_DESCRICAO = document.getElementById("sidebar-atracao-descricao");
     const SIDEBAR_ATRACAO_CAPACIDADE = document.getElementById("sidebar-atracao-capacidade");
     const SIDEBAR_ATRACAO_DURACAO = document.getElementById("sidebar-atracao-duracao");
+    const SIDEBAR_USUARIO_TEMPO_ESPERA = document.getElementById("sidebar-usuario-tempo-espera");
 
     setConteudoCardSelecionado()
 
     let msgEntrarFila =document.getElementById("msg-entrar-fila")    
     msgEntrarFila.style.display = 'none';
-   
+    let msgPosicao = document.getElementById("position");
+    msgPosicao.style.display = 'none';
+    let btnPosicao = document.getElementById("position-queue");
+    btnPosicao.style.display = 'none';
 
     document.getElementById("enqueue").addEventListener("click", async function(e){
         e.preventDefault();
 
-        let atracaoDTO = new AtracaoDTO(usuario?.atracao?.id,usuario?.atracao?.nome);
+        let atracaoDTO = null;
+        if(usuario?.atracao == null || usuario?.atracao == undefined){
+            atracaoDTO = new AtracaoDTO(CAROUSEL.cards.currentNode.value.conteudo.id,CAROUSEL.cards.currentNode.value.conteudo.nome);
+        }
+        else{
+            atracaoDTO = new AtracaoDTO(usuario?.atracao?.id,usuario?.atracao?.nome);
+        }
+         
         let usuarioDTO = new UsuarioDTO(usuario.id,usuario.nome,atracaoDTO);
         let entrarFilaRequestDTO = new EntrarFilaRequestDTO(usuarioDTO,CAROUSEL.cards.currentNode.value.conteudo.id)
         if(atracaoDTO.id != null || atracaoDTO.id != undefined){
             msgEntrarFila.style.display = CAROUSEL.cards.currentNode.value.conteudo.id != atracaoDTO.id ? 'block': 'none'
             msgEntrarFila.innerHTML = `Você já está na fila da atração: ${usuario?.atracao?.nome}`;
         }        
-        if (atracaoDTO.id == null || atracaoDTO.id == undefined) {
+        if (usuario?.atracao?.id == null || usuario?.atracao?.id == undefined) {
             const response = await fetch(`${Constants.API_BASE_URL}/usuario/entrar-fila-brinquedo`, {
                 method: 'POST', 
                 headers: {
@@ -50,12 +61,12 @@ ready(async () => {
                 body: JSON.stringify(entrarFilaRequestDTO)
             });
             if(response.ok){            
-            setTimeout(()=>{
-                 getUser();
-                 let btnDequeue = document.getElementById("dequeue");        
-                 btnDequeue.style.display = 'block'
-            },3000)
-            
+                setTimeout(()=>{
+                    getUser();
+                    let btnDequeue = document.getElementById("dequeue");        
+                    btnDequeue.style.display = 'block';
+                    btnPosicao.style.display = 'block';
+                },3000)
             }
         }
         
@@ -74,10 +85,19 @@ ready(async () => {
                 getUser();
                 let btnDequeue = document.getElementById("dequeue");        
                 btnDequeue.style.display = 'none'
+                btnPosicao.style.display = 'none';
+                msgPosicao.style.display = 'none';
            },3000)
            
         }
-    });   
+    });  
+    
+    document.getElementById("position-queue").addEventListener("click", async function(e){
+        e.preventDefault();
+        getUser();
+        msgPosicao.style.display = 'block';     
+        msgPosicao.innerHTML = `Sua posição na fila: ${usuario?.posicaoFila}`
+        })
          
     document.getElementById("main-l-sidebar-close-btn").addEventListener("click",async function name(e) {
         e.preventDefault();
@@ -211,38 +231,46 @@ ready(async () => {
     }
 
     function setConteudoCardSelecionado(){
+        let capacidadeAtracao = CAROUSEL.cardSelecionado.conteudo.capacidade;
         SIDEBAR_ATRACAO_TITLE.innerHTML = CAROUSEL.cardSelecionado.conteudo.nome;
         SIDEBAR_ATRACAO_IMG.setAttribute("src", `data:image/jpeg;base64,${CAROUSEL.cardSelecionado.conteudo.imagemBase64}`);
         SIDEBAR_ATRACAO_DESCRICAO.innerHTML = CAROUSEL.cardSelecionado.conteudo.descricao;
-        SIDEBAR_ATRACAO_CAPACIDADE.innerHTML = `${CAROUSEL.cardSelecionado.conteudo.capacidade} pessoa(s) por vez`;
+        SIDEBAR_ATRACAO_CAPACIDADE.innerHTML = `${capacidadeAtracao} pessoa(s) por vez`;
 
         let stringDuracao = "";
         let tempoDuracaoEmMin = CAROUSEL.cardSelecionado.conteudo.duracao;
-        if(tempoDuracaoEmMin > 60){
-            stringDuracao += Math.floor(tempoDuracaoEmMin / 60) + " horas";
-            let minutos = tempoDuracaoEmMin % 60;
-            if(minutos > 0)
-                stringDuracao += " e " + minutos + " minutos";
-        }
-        else{
-            if(tempoDuracaoEmMin > 0)
-                stringDuracao += tempoDuracaoEmMin + " minutos";
-            else
-                stringDuracao += "menos de 1 minuto";
-        }
+        stringDuracao += tempoDuracaoEmMin > 1 ? tempoDuracaoEmMin + " minutos" : tempoDuracaoEmMin + " minuto";
         SIDEBAR_ATRACAO_DURACAO.innerHTML = stringDuracao;  
+        
+        if (usuario?.posicaoFila === null || usuario?.atracao?.id != CAROUSEL.cardSelecionado.conteudo.id) {
+            let tempoEsperaAtracao = Math.round((CAROUSEL.cardSelecionado.conteudo.tamanhoFila / capacidadeAtracao) * tempoDuracaoEmMin);
+            SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML = tempoEsperaAtracao <= 1 ? "Tempo de espera:  Menos de 1 minuto!" : "Tempo de espera: " + tempoEsperaAtracao + " minutos";
+        } else {
+            let tempoEsperaAtracao = Math.round((usuario?.posicaoFila / capacidadeAtracao) * tempoDuracaoEmMin);
+            if (usuario?.posicaoFila <= capacidadeAtracao) {
+                SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML = "Sua vez já chegou! Vá até a atração!";
+            } else if ((usuario?.posicaoFila - capacidadeAtracao) <= capacidadeAtracao) {
+                SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML = "Você é o próximo! Vá até a atração!"
+            } else {
+                SIDEBAR_USUARIO_TEMPO_ESPERA.innerHTML = "Tempo de espera: " + tempoEsperaAtracao + " minutos";
+            }
+        }
         
         let btnDequeue = document.getElementById("dequeue");        
         btnDequeue.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
+        let btnPosicao = document.getElementById("position-queue");
+        btnPosicao.style.display = CAROUSEL.cards.currentNode.value.conteudo.id == usuario?.atracao?.id ? 'block' : 'none'
+        let msgPosicao = document.getElementById("position");
+        msgPosicao.style.display = 'none';
+        getUser();
     }
 
     async function getUser() {
-        let userId = localStorage.getItem('userId');
-        userId = Number(userId);
-        let response = await fetch(`${Constants.API_BASE_URL}/usuario/id/${userId}`,{
+        let userEmail = localStorage.getItem('email');
+        let response = await fetch(`${Constants.API_BASE_URL}/usuario/email/${userEmail}`,{
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json' 
+                'Content-Type': 'application/json'
             }
         })
         usuario = await response.json()
