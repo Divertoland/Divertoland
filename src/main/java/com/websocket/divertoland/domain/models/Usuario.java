@@ -19,6 +19,7 @@ public class Usuario {
     private Role cargo;
     @ManyToOne
     private Atracao atracao;
+    private int posicaoFila;
 
     public Usuario(){}
     
