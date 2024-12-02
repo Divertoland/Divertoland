@@ -1,6 +1,6 @@
 package com.websocket.divertoland.services.v1;
 
-import com.websocket.divertoland.api.config.ComponentConfig;
+import com.websocket.divertoland.api.config.components.FilasAtracoes;
 import com.websocket.divertoland.api.config.security.CustomPasswordEncoder;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.AtracaoRepository;
 import com.websocket.divertoland.infrastructure.abstractions.repositories.UsuarioRepository;
@@ -24,7 +24,7 @@ public class UsuarioServiceV1 implements UsuarioService  {
     private UsuarioRepository _usuarioRepository;
 
     @Autowired
-    private ComponentConfig _componentConfig;
+    private FilasAtracoes _filasAtracoes;
 
     @Autowired
     private AtracaoRepository _atracaoRepository;
@@ -34,7 +34,7 @@ public class UsuarioServiceV1 implements UsuarioService  {
     }
     
     public void entrarNaFila(EntrarFilaRequestDTO entrarFilaRequestDTO){
-        _componentConfig.AdicionarUsuarioHashMp(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
+        _filasAtracoes.AdicionarUsuarioHashMp(entrarFilaRequestDTO.getAtracaoId(),entrarFilaRequestDTO.getUsuario());
         Usuario usuarioBD = _usuarioRepository.findById(entrarFilaRequestDTO.getUsuario().getId()).orElseThrow();
         Atracao atracao = _atracaoRepository.findById(entrarFilaRequestDTO.getAtracaoId()).orElseThrow();
         usuarioBD.setAtracao(atracao);
@@ -42,8 +42,8 @@ public class UsuarioServiceV1 implements UsuarioService  {
     }
     
     public void sairDaFila(Long atracaoId){
-        var usuario = _componentConfig.getInicio(atracaoId);
-        _componentConfig.RemoverUsuarioFila(atracaoId);
+        var usuario = _filasAtracoes.getInicio(atracaoId);
+        _filasAtracoes.RemoverUsuarioFila(atracaoId);
         Usuario usuarioBD = _usuarioRepository.findById(usuario.value.getId()).orElseThrow();
         usuarioBD.setAtracao(null);
         _usuarioRepository.save(usuarioBD);
