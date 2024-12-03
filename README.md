@@ -1,10 +1,18 @@
 # 🎢Divertoland
 
-<!-- <p align="center">
-    <img src="arquivosReadme/" alt="drawing" />
-</p> -->
 
 Sistema de filas virtuais para parques de diversões, com o intuito de diminuir as filas quilométricas e facilitar a organização das atrações.
+
+<p align="center">
+    <img src="arquivosReadme/demo.gif alt="drawing" />
+</p>
+
+## Desenvolvedores:
+- Abraão Rocha de Souza | RA: 125111357411
+- Henrique Barbosa | RA: 125111368512 
+- Kaique Gino Santiago | RA: 125111377775 
+- Luiz Henrique Rodrigues de Brito | RA: 125111344683
+- Marcus Gustavo Oliveira Sigrist Romão | RA: 125111372918
 
 ## ⚙️Tecnologias utilizadas
 Para executar o projeto localmente é necessário instalar:
