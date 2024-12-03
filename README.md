@@ -8,7 +8,7 @@
     <img src="arquivosReadme/demo.gif" alt="drawing" />
 </p>
 
-## Desenvolvedores:
+## 🧑‍💻Desenvolvedores:
 - Abraão Rocha de Souza | RA: 125111357411
 - Henrique Barbosa | RA: 125111368512 
 - Kaique Gino Santiago | RA: 125111377775 
