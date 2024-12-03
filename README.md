@@ -4,7 +4,7 @@
 Sistema de filas virtuais para parques de diversões, com o intuito de diminuir as filas quilométricas e facilitar a organização das atrações.
 
 <p align="center">
-    <img src="arquivosReadme/demo.gif alt="drawing" />
+    <img src="arquivosReadme/demo.gif" alt="drawing" />
 </p>
 
 ## Desenvolvedores:
