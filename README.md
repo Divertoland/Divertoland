@@ -1,13 +1,14 @@
-# 🎢Divertoland
-
-
-Sistema de filas virtuais para parques de diversões, com o intuito de diminuir as filas quilométricas e facilitar a organização das atrações.
+<h1 align="center">🎢 Divertoland</h1>
 
 <p align="center">
-    <img src="arquivosReadme/demo.gif alt="drawing" />
+    Sistema de filas virtuais para parques de diversões, com o intuito de diminuir as filas quilométricas e facilitar a organização das atrações.
 </p>
 
-## Desenvolvedores:
+<p align="center">
+    <img src="arquivosReadme/demo.gif" alt="drawing" />
+</p>
+
+## 🧑‍💻Desenvolvedores:
 - Abraão Rocha de Souza | RA: 125111357411
 - Henrique Barbosa | RA: 125111368512 
 - Kaique Gino Santiago | RA: 125111377775 
@@ -28,4 +29,4 @@ Para executar o projeto localmente é necessário instalar:
 
 
 ### **🚨Observação**
-*Não é possível executar o projeto localmente pois são necessárias as variáveis de ambiente, das quais possuem dados sensíveis de acesso a serviços da Azure. Caso queira acessar o site, clique [aqui](https://divertoland.azurewebsites.net).*
+*Não é possível executar o projeto localmente pois são necessárias as variáveis de ambiente, das quais possuem dados sensíveis de acesso a serviços da Azure. Caso queira acessar o site de demonstração, clique aqui: [Divertoland](https://divertoland.azurewebsites.net).*
