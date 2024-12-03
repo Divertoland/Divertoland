@@ -29,7 +29,11 @@ public class SecurityConfig {
         "/pages/**",
         "/cadastro",
         "/login",
-        "/api/auth/**"
+        "/api/auth/**",
+        "/swagger-ui.html",
+        "/swagger-ui/**",
+        "/v3/api-docs",
+        "/v3/api-docs/**"
     };
 
     @Value("${spring.profiles.active}")
