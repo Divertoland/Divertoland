@@ -4,10 +4,6 @@
     Sistema de filas virtuais para parques de diversões, com o intuito de diminuir as filas quilométricas e facilitar a organização das atrações.
 </p>
 
-<p align="center">
-    <img src="arquivosReadme/demo.gif" alt="drawing" />
-</p>
-
 ## 🧑‍💻Desenvolvedores:
 - Abraão Rocha de Souza | RA: 125111357411
 - Henrique Barbosa | RA: 125111368512 
